@@ -1,16 +1,45 @@
-# React + Vite
+# Fieldwork Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Two single-page website template variants built with React 19, Vite 7, and Tailwind CSS v4.
 
-Currently, two official plugins are available:
+- **V1** — Architecture firm template (Fieldwork)
+- **V2** — AI coding tools consultancy (Many Roads AI)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- React 19 + Vite 7
+- Tailwind CSS v4 (via `@tailwindcss/vite`)
+- React Router v7
+- Lenis (smooth scrolling)
+- Geist Sans + Geist Mono fonts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Routes
+
+| Path  | Template                     |
+|-------|------------------------------|
+| `/`   | Index — links to V1 and V2   |
+| `/v1` | Fieldwork (architecture)     |
+| `/v2` | Many Roads AI (consulting)   |
+
+## V2 Features
+
+- Dark mode with system preference detection and manual toggle
+- Code-styled section labels (`// 01 — THE_PROBLEM`)
+- Geist Mono accents for nav, buttons, labels, and badges
+- Sections: Hero, About, Services, Pathways (Trailhead + Wayfinder), Team, Credibility, Footer
+
+## Commands
+
+```bash
+npm run dev      # Dev server
+npm run build    # Production build
+npm run preview  # Preview production build
+npm run lint     # ESLint
+```
