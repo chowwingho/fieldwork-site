@@ -141,11 +141,16 @@ function ChevronIcon({ open, className = "w-6 h-6" }) {
 }
 
 // =============================================================================
+// FONT STYLES
+// =============================================================================
+const MONO = { fontFamily: '"Geist Mono", monospace' };
+
+// =============================================================================
 // SHARED COMPONENTS
 // =============================================================================
 function SectionLabel({ children, align = "left" }) {
   return (
-    <span className={`text-lg font-medium text-[#262625] tracking-normal whitespace-nowrap ${align === "right" ? "text-right" : ""}`}>
+    <span className={`text-lg font-medium text-[#262625] tracking-normal whitespace-nowrap ${align === "right" ? "text-right" : ""}`} style={MONO}>
       {children}
     </span>
   );
@@ -154,7 +159,7 @@ function SectionLabel({ children, align = "left" }) {
 function SecondaryLink({ children, color = "dark" }) {
   const textColor = color === "dark" ? "text-[#262625]" : "text-white";
   return (
-    <a href="#" className={`inline-flex items-center gap-1.5 text-lg font-medium ${textColor} group`}>
+    <a href="#" className={`inline-flex items-center gap-1.5 text-lg font-medium ${textColor} group`} style={MONO}>
       <span>{children}</span>
       <ArrowIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </a>
@@ -166,6 +171,7 @@ function PrimaryButton({ children }) {
     <a
       href="#"
       className="group inline-flex items-center gap-2 bg-[#F0EEE6] text-[#262625] px-4 py-2 rounded-lg text-lg font-medium hover:bg-[#E5E2D8] transition-colors w-fit"
+      style={MONO}
     >
       <span>{children}</span>
       <ArrowIcon className="w-4 h-4 transition-transform duration-200 ease-in-out group-hover:rotate-45" />
@@ -180,7 +186,7 @@ function Navbar() {
   return (
     <nav className="bg-[#FAF9F6] sticky top-0 z-50">
       <div className="max-w-[1280px] mx-auto px-12 flex items-center justify-between h-[77px]">
-        <span className="text-lg font-medium text-[#262625] tracking-wide">FIELDWORK&reg;</span>
+        <span className="text-lg font-medium text-[#262625] tracking-wide" style={MONO}>FIELDWORK&reg;</span>
         <div className="flex items-center gap-8">
           {NAV_LINKS.map((link, i) => (
             <a
@@ -202,9 +208,9 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="pt-16 pb-32">
+    <section className="pt-16 pb-16">
       <div className="max-w-[1280px] mx-auto px-12">
-        <div className="grid grid-cols-2 gap-16 mb-24">
+        <div className="grid grid-cols-2 gap-16">
           <div className="flex flex-col gap-8">
             <h1 className="text-5xl font-medium leading-[1.2] tracking-tight text-[#262625]">
               We design spaces that balance function and timeless beauty.
@@ -220,13 +226,6 @@ function HeroSection() {
             </p>
           </div>
         </div>
-        <div className="w-full aspect-[16/7] rounded-lg overflow-hidden">
-          <img
-            src={ASSETS.heroImage}
-            alt="Modern architecture with blue glass facade"
-            className="w-full h-full object-cover"
-          />
-        </div>
       </div>
     </section>
   );
@@ -238,7 +237,7 @@ function AboutSection() {
       <div className="max-w-[1280px] mx-auto px-12">
       <div className="grid grid-cols-2 gap-16 mb-24">
         <div>
-          <SectionLabel>(FW 02) &mdash; ABOUT</SectionLabel>
+          <SectionLabel>(MRAI 01) &mdash; THE PROBLEM</SectionLabel>
           <h2 className="text-[40px] font-medium leading-[1.2] text-[#262625] mt-12">
             Architecture that stands for clarity and purpose.
           </h2>
@@ -285,7 +284,7 @@ function ServicesSection() {
           <div className="grid grid-cols-5 gap-x-8">
             {/* Label in col 1 */}
             <div className="col-span-1">
-              <SectionLabel>(FW 03) &mdash; SERVICES</SectionLabel>
+              <SectionLabel>(MRAI 02) &mdash; SERVICES</SectionLabel>
             </div>
             {/* Empty col 2 acts as gutter */}
             <div className="col-span-1" />
@@ -334,7 +333,7 @@ function WorkSection() {
             </p>
           </div>
           <div className="flex items-end justify-end">
-            <SectionLabel align="right">(FW 04) &mdash; WORK</SectionLabel>
+            <SectionLabel align="right">(MRAI 03) &mdash; WORK</SectionLabel>
           </div>
         </div>
         <div className="border-t border-[#262625/12]">
@@ -369,7 +368,7 @@ function ClientsSection() {
       <div className="max-w-[1280px] mx-auto px-12">
         <div className="grid grid-cols-[250px_1fr] gap-16">
           <div>
-            <SectionLabel>(FW 05) &mdash; CLIENTS</SectionLabel>
+            <SectionLabel>(MRAI 04) &mdash; CLIENTS</SectionLabel>
           </div>
           <div>
             <h2 className="text-[40px] font-medium leading-[1.2] text-[#262625] mb-4">
@@ -410,7 +409,7 @@ function FAQSection() {
           <h2 className="text-[40px] font-medium leading-[1.2] text-[#262625]">
             We answer the questions that matter most.
           </h2>
-          <SectionLabel align="right">(FW 06) &mdash; FAQ</SectionLabel>
+          <SectionLabel align="right">(MRAI 05) &mdash; FAQ</SectionLabel>
         </div>
         <div className="grid grid-cols-2 gap-16">
           <p className="text-lg leading-[1.6] text-[#888888]">
@@ -517,7 +516,7 @@ function Footer() {
         </div>
         {/* Large wordmark */}
         <div className="mt-24">
-          <p className="text-[clamp(80px,15vw,200px)] font-medium leading-none tracking-tight" style={{ fontFamily: '"Geist Sans", sans-serif' }}>
+          <p className="text-[clamp(80px,15vw,200px)] font-medium leading-none tracking-tight">
             FIELDWORK
           </p>
         </div>
@@ -529,9 +528,9 @@ function Footer() {
 // =============================================================================
 // MAIN COMPONENT
 // =============================================================================
-export default function FieldworkTemplate() {
+export default function FieldworkV2() {
   return (
-    <div className="bg-[#FAF9F6] min-h-screen" style={{ fontFamily: "'Satoshi', sans-serif" }}>
+    <div className="bg-[#FAF9F6] min-h-screen" style={{ fontFamily: '"Geist Sans", sans-serif' }}>
       <Navbar />
       <main>
         <HeroSection />
