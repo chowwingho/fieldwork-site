@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // =============================================================================
 // ASSET URLS (Figma exports — valid for 7 days)
@@ -178,6 +178,70 @@ function PrimaryButton({ children }) {
   );
 }
 
+const HERO_PHRASES = ["See where you stand", "Run the assessment", "Start here"];
+
+function TypewriterButton() {
+  const [text, setText] = useState("");
+  const [paused, setPaused] = useState(false);
+  const phase = useRef("typing"); // typing | pause | erasing | pauseNext
+  const phraseIdx = useRef(0);
+  const charIdx = useRef(0);
+  const timer = useRef(null);
+
+  const tick = useCallback(() => {
+    const current = HERO_PHRASES[phraseIdx.current];
+
+    if (phase.current === "typing") {
+      charIdx.current++;
+      setText(current.slice(0, charIdx.current));
+      if (charIdx.current >= current.length) {
+        phase.current = "pause";
+        setPaused(true);
+        timer.current = setTimeout(tick, 4000);
+      } else {
+        timer.current = setTimeout(tick, 50);
+      }
+    } else if (phase.current === "pause") {
+      phase.current = "erasing";
+      setPaused(false);
+      timer.current = setTimeout(tick, 30);
+    } else if (phase.current === "erasing") {
+      charIdx.current--;
+      setText(current.slice(0, charIdx.current));
+      if (charIdx.current <= 0) {
+        phase.current = "pauseNext";
+        timer.current = setTimeout(tick, 600);
+      } else {
+        timer.current = setTimeout(tick, 30);
+      }
+    } else if (phase.current === "pauseNext") {
+      phraseIdx.current = (phraseIdx.current + 1) % HERO_PHRASES.length;
+      phase.current = "typing";
+      setPaused(false);
+      timer.current = setTimeout(tick, 50);
+    }
+  }, []);
+
+  useEffect(() => {
+    phase.current = "typing";
+    charIdx.current = 0;
+    setText("");
+    timer.current = setTimeout(tick, 400);
+    return () => clearTimeout(timer.current);
+  }, [tick]);
+
+  return (
+    <a
+      href="#"
+      className="inline-flex items-center text-left bg-[#E8E6DD] dark:bg-[#333331] text-[#262625] dark:text-[#ECECEA] px-4 py-2 rounded-lg text-lg font-medium hover:bg-[#DEDAD0] dark:hover:bg-[#3D3D3A] transition-colors"
+      style={MONO}
+    >
+      {text}
+      <span className={paused ? "blink-cursor" : "opacity-0"}>_</span>
+    </a>
+  );
+}
+
 // =============================================================================
 // SECTIONS
 // =============================================================================
@@ -220,7 +284,7 @@ function HeroSection() {
               You bought your team AI coding tools six months ago. They&rsquo;re still not faster.
             </h1>
             <div className="flex items-center gap-6">
-              <PrimaryButton>See where you stand_</PrimaryButton>
+              <TypewriterButton />
               <a href="#" className="text-lg font-medium text-[#888888] dark:text-[#ECECEA]/50 underline underline-offset-4 hover:text-[#262625] dark:hover:text-[#ECECEA] transition-colors" style={MONO}>
                 or talk to our team
               </a>
@@ -365,7 +429,7 @@ function PathwaysSection() {
               </p>
               <div className="mt-auto flex flex-col gap-4">
                 <a href="#" className="inline-flex bg-[#D1CFC6] dark:bg-[#3D3D3A] text-[#262625] dark:text-[#ECECEA] px-4 py-2 rounded-lg text-lg font-medium hover:bg-[#C5C3BA] dark:hover:bg-[#4A4A47] transition-colors w-fit" style={MONO}>
-                  Run the assessment_
+                  Run the assessment<span className="blink-cursor">_</span>
                 </a>
                 <a href="#" className="text-lg font-medium text-[#888888] dark:text-[#ECECEA]/50 underline underline-offset-4 hover:text-[#262625] dark:hover:text-[#ECECEA] transition-colors w-fit" style={MONO}>
                   or talk to our team
@@ -390,7 +454,7 @@ function PathwaysSection() {
               </p>
               <div className="mt-auto flex flex-col gap-4">
                 <a href="#" className="inline-flex bg-[#D1CFC6] dark:bg-[#3D3D3A] text-[#262625] dark:text-[#ECECEA] px-4 py-2 rounded-lg text-lg font-medium hover:bg-[#C5C3BA] dark:hover:bg-[#4A4A47] transition-colors w-fit" style={MONO}>
-                  Learn more about Wayfinder_
+                  Learn more about Wayfinder<span className="blink-cursor">_</span>
                 </a>
                 <a href="#" className="text-lg font-medium text-[#888888] dark:text-[#ECECEA]/50 underline underline-offset-4 hover:text-[#262625] dark:hover:text-[#ECECEA] transition-colors w-fit" style={MONO}>
                   or book a conversation with our team
@@ -562,14 +626,14 @@ function Footer() {
             className="inline-flex bg-[#E8E6DD] dark:bg-[#333331] text-[#262625] dark:text-[#ECECEA] px-4 py-2 rounded-lg text-lg font-medium hover:bg-[#DEDAD0] dark:hover:bg-[#3D3D3A] transition-colors w-fit"
             style={MONO}
           >
-            Run Trailhead &mdash; see where your team stands_
+            Run Trailhead &mdash; see where your team stands<span className="blink-cursor">_</span>
           </a>
           <a
             href="#"
             className="inline-flex bg-[#E8E6DD] dark:bg-[#333331] text-[#262625] dark:text-[#ECECEA] px-4 py-2 rounded-lg text-lg font-medium hover:bg-[#DEDAD0] dark:hover:bg-[#3D3D3A] transition-colors w-fit"
             style={MONO}
           >
-            Book a conversation about Wayfinder_
+            Book a conversation about Wayfinder<span className="blink-cursor">_</span>
           </a>
         </div>
         <p className="text-lg leading-[1.6] text-white/60 mb-16">
