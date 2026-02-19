@@ -621,14 +621,14 @@
   .pattern-demo-section {
     padding: 32px 28px;
     border-bottom: 1px solid rgba(38, 38, 37, 0.12);
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 24px;
   }
+  .pattern-demo-section > *:first-child { flex: 1; min-width: 0; }
   .pattern-demo-section:last-child { border-bottom: none; }
   .pattern-annotation {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    flex-shrink: 0;
     font-family: var(--mono-font);
     font-size: 12px;
     color: #C25B3F;
@@ -636,6 +636,7 @@
     padding: 3px 8px;
     border-radius: 4px;
     border: 1px solid rgba(194, 91, 63, 0.15);
+    white-space: nowrap;
   }
 
   /* ============================================
@@ -1283,7 +1284,7 @@
     <h2 class="section-title">Section Anatomy</h2>
     <p class="section-desc">Every major content section follows this repeating structure. Consistency here is what makes the page feel cohesive.</p>
 
-    <div class="pattern-demo" style="max-width:680px;">
+    <div class="pattern-demo" style="max-width:800px;">
       <div class="pattern-demo-section">
         <div style="font-family:var(--mono-font); font-size:13px; color:#888; letter-spacing:0.04em; margin-bottom:12px;">03 — TWO_PATHS</div>
         <div class="pattern-annotation">① Section marker</div>
