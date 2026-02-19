@@ -3,10 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design System — Many Roads</title>
+<title>Design System — Many Roads &lt;AI&gt;</title>
 <link rel="icon" href="/favicon.ico">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+  @font-face {
+    font-family: "Geist Sans";
+    src: url("https://cdn.jsdelivr.net/npm/geist@1/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Geist Mono";
+    src: url("https://cdn.jsdelivr.net/npm/geist@1/dist/fonts/geist-mono/GeistMono-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+  }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,21 +25,27 @@
     --page-bg: #FAF9F6;
     --card-bg: #F0EEE6;
     --btn-primary: #E8E6DD;
-    --btn-pathway: #D1CFC6;
     --btn-primary-hover: #DEDAD0;
+    --btn-pathway: #D1CFC6;
     --btn-pathway-hover: #C5C3BA;
     --text-primary: #262625;
     --text-muted: #888888;
     --border: rgba(38, 38, 37, 0.12);
+    --border-subtle: rgba(38, 38, 37, 0.06);
     --footer-bg: #262625;
-    --system-font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono-font: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: "Geist Sans", sans-serif;
+    --mono: "Geist Mono", monospace;
+    --accent-green: #3D7A41;
+    --accent-mauve: #8A708A;
+    --accent-blue: #4F769A;
+    --accent-orange: #C47030;
+    --accent-amber: #B8892A;
   }
 
   body {
-    font-family: var(--system-font);
-    background: #FFFFFF;
-    color: #262625;
+    font-family: var(--sans);
+    background: var(--page-bg);
+    color: var(--text-primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -37,49 +54,52 @@
      HEADER
      ============================================ */
   .doc-header {
-    border-bottom: 1px solid rgba(38, 38, 37, 0.08);
     padding: 40px 48px 32px;
   }
   .doc-header-inner {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
+    padding: 0 0;
   }
   .doc-label {
-    font-family: var(--mono-font);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 12px;
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .doc-label .accent-slash {
+    color: var(--accent-blue);
   }
   .doc-title {
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 8px;
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
   .doc-subtitle {
     font-size: 17px;
-    color: #888;
-    max-width: 600px;
+    color: var(--text-muted);
+    max-width: 640px;
+    line-height: 1.6;
   }
   .doc-meta {
-    margin-top: 20px;
+    margin-top: 24px;
     display: flex;
     gap: 24px;
     font-size: 14px;
-    color: #888;
-    font-family: var(--mono-font);
+    color: var(--text-muted);
+    font-family: var(--mono);
   }
   .back-link {
     font-size: 14px;
-    color: #888;
+    color: var(--text-muted);
     text-decoration: none;
-    font-family: var(--mono-font);
+    font-family: var(--mono);
     transition: color 0.15s ease;
   }
-  .back-link:hover { color: #262625; }
+  .back-link:hover { color: var(--text-primary); }
 
   /* ============================================
      NAV
@@ -87,13 +107,14 @@
   .doc-nav {
     position: sticky;
     top: 0;
-    background: #FFFFFF;
-    border-bottom: 1px solid rgba(38, 38, 37, 0.08);
+    background: var(--page-bg);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
     padding: 0 48px;
     z-index: 100;
   }
   .doc-nav-inner {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     display: flex;
     gap: 0;
@@ -103,52 +124,90 @@
     padding: 14px 20px;
     font-size: 14px;
     font-weight: 500;
-    color: #888;
+    font-family: var(--mono);
+    color: var(--text-muted);
     text-decoration: none;
     white-space: nowrap;
     border-bottom: 2px solid transparent;
     transition: all 0.15s ease;
   }
   .doc-nav a:hover {
-    color: #262625;
-    border-bottom-color: #262625;
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
   }
 
   /* ============================================
      SECTIONS
      ============================================ */
   .section {
-    padding: 64px 48px;
-    border-bottom: 1px solid rgba(38, 38, 37, 0.06);
+    padding: 80px 48px;
+  }
+  .section + .section {
+    border-top: 1px solid var(--border);
   }
   .section-inner {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
   }
   .section-marker {
-    font-family: var(--mono-font);
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #888;
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
     margin-bottom: 8px;
   }
+  .section-marker .accent-slash {
+    color: var(--accent-blue);
+  }
   .section-title {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     margin-bottom: 8px;
   }
   .section-desc {
-    font-size: 16px;
-    color: #888;
-    max-width: 520px;
-    margin-bottom: 40px;
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-bottom: 48px;
     line-height: 1.6;
   }
 
   /* ============================================
-     COLOR SWATCHES
+     COLOR RAMP (GRADIENT STRIP)
+     ============================================ */
+  .color-ramp-container {
+    margin-bottom: 48px;
+  }
+  .color-ramp-label {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .color-ramp {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 56px;
+  }
+  .color-ramp-cell {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 6px;
+  }
+  .color-ramp-cell span {
+    font-family: var(--mono);
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  .color-ramp-cell.light-text span { color: #FAF9F6; }
+  .color-ramp-cell.dark-text span { color: #262625; }
+
+  /* ============================================
+     COLOR SWATCHES (Side-by-side panels)
      ============================================ */
   .color-mode-grid {
     display: grid;
@@ -159,52 +218,48 @@
   .color-mode-panel {
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(38, 38, 37, 0.1);
+    border: 1px solid var(--border);
   }
-  .color-mode-panel.dark {
-    border-color: rgba(255, 255, 255, 0.08);
+  .color-mode-panel.dark-panel {
+    border-color: rgba(236, 236, 234, 0.1);
   }
   .color-mode-label {
     padding: 16px 20px;
     font-size: 14px;
-    font-weight: 600;
+    font-family: var(--mono);
+    font-weight: 500;
     letter-spacing: 0.03em;
     text-transform: uppercase;
   }
-  .color-mode-panel.light .color-mode-label {
+  .color-mode-panel.light-panel .color-mode-label {
     background: #FAF9F6;
     color: #262625;
     border-bottom: 1px solid rgba(38, 38, 37, 0.1);
   }
-  .color-mode-panel.dark .color-mode-label {
+  .color-mode-panel.dark-panel .color-mode-label {
     background: #1A1A18;
     color: #ECECEA;
     border-bottom: 1px solid rgba(236, 236, 234, 0.1);
   }
-
-  .swatch-group {
-    padding: 16px 20px;
-  }
-  .color-mode-panel.light .swatch-group { background: #FFFFFF; }
-  .color-mode-panel.dark .swatch-group { background: #111110; }
-
+  .swatch-group { padding: 16px 20px; }
+  .color-mode-panel.light-panel .swatch-group { background: #FFFFFF; }
+  .color-mode-panel.dark-panel .swatch-group { background: #111110; }
   .swatch-group-title {
     font-size: 12px;
-    font-family: var(--mono-font);
+    font-family: var(--mono);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-bottom: 12px;
     padding-bottom: 8px;
   }
-  .color-mode-panel.light .swatch-group-title {
+  .color-mode-panel.light-panel .swatch-group-title {
     color: #888;
     border-bottom: 1px solid rgba(38, 38, 37, 0.08);
   }
-  .color-mode-panel.dark .swatch-group-title {
+  .color-mode-panel.dark-panel .swatch-group-title {
     color: rgba(236, 236, 234, 0.5);
     border-bottom: 1px solid rgba(236, 236, 234, 0.06);
   }
-
   .swatch-row {
     display: flex;
     align-items: center;
@@ -223,114 +278,271 @@
   .swatch-chip.bordered-dark {
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
   }
-  .swatch-info {
-    flex: 1;
-    min-width: 0;
-  }
+  .swatch-info { flex: 1; min-width: 0; }
   .swatch-name {
     font-size: 14px;
     font-weight: 500;
     line-height: 1.3;
   }
-  .color-mode-panel.light .swatch-name { color: #262625; }
-  .color-mode-panel.dark .swatch-name { color: #ECECEA; }
-
   .swatch-hex {
-    font-family: var(--mono-font);
+    font-family: var(--mono);
     font-size: 13px;
     line-height: 1.3;
   }
-  .color-mode-panel.light .swatch-hex { color: #888; }
-  .color-mode-panel.dark .swatch-hex { color: rgba(236, 236, 234, 0.5); }
+  .light-panel .swatch-name { color: #262625; }
+  .light-panel .swatch-hex { color: #888; }
+  .dark-panel .swatch-name { color: #ECECEA; }
+  .dark-panel .swatch-hex { color: rgba(236, 236, 234, 0.5); }
 
   /* ============================================
-     COLOR RAMP (GRADIENT STRIP)
+     ACCENT COLOR GRID
      ============================================ */
-  .color-ramp-container {
-    margin-bottom: 48px;
+  .accent-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
   }
-  .color-ramp-label {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #262625;
-  }
-  .color-ramp {
-    display: flex;
-    border-radius: 10px;
+  .accent-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
     overflow: hidden;
-    height: 56px;
   }
-  .color-ramp-cell {
-    flex: 1;
+  .accent-swatch {
+    height: 80px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    padding-bottom: 6px;
-    position: relative;
   }
-  .color-ramp-cell span {
-    font-family: var(--mono-font);
-    font-size: 12px;
-    opacity: 0.7;
+  .accent-swatch-text {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
   }
-  .color-ramp-cell.light-text span { color: #FAF9F6; }
-  .color-ramp-cell.dark-text span { color: #262625; }
+  .accent-info {
+    padding: 12px 16px;
+    background: white;
+  }
+  .accent-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .accent-hex {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .accent-a11y {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .a11y-pass {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+  .a11y-pass.aa { background: rgba(61, 122, 65, 0.1); color: #3D7A41; }
+  .a11y-pass.aa-large { background: rgba(184, 137, 42, 0.1); color: #B8892A; }
 
   /* ============================================
-     TYPOGRAPHY SCALE
+     TYPE SCALE
      ============================================ */
-  .type-specimen {
-    margin-bottom: 48px;
-  }
+  .type-specimen { margin-bottom: 48px; }
   .type-specimen-row {
     display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 24px;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
     align-items: baseline;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(38, 38, 37, 0.06);
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-subtle);
   }
-  .type-specimen-meta {
-    padding-top: 4px;
-  }
+  .type-specimen-meta { padding-top: 4px; }
   .type-specimen-label {
     font-size: 15px;
     font-weight: 500;
-    color: #262625;
     margin-bottom: 2px;
   }
   .type-specimen-detail {
-    font-family: var(--mono-font);
+    font-family: var(--mono);
     font-size: 13px;
-    color: #888;
+    color: var(--text-muted);
     line-height: 1.5;
   }
-  .type-specimen-example {
-    color: #262625;
-  }
+  .type-specimen-example { color: var(--text-primary); }
 
-  /* Section marker specimen */
-  .type-section-marker {
+  /* Section Marker chips */
+  .marker-row {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     flex-wrap: wrap;
     margin-top: 32px;
     padding: 24px;
-    background: #FAF9F6;
+    background: var(--page-bg);
     border-radius: 10px;
-    border: 1px solid rgba(38,38,37,0.08);
+    border: 1px solid var(--border);
   }
   .marker-chip {
-    font-family: var(--mono-font);
-    font-size: 14px;
+    font-family: var(--mono);
+    font-size: 18px;
     font-weight: 500;
+    color: var(--text-primary);
+  }
+  .marker-chip .accent-slash { color: var(--accent-blue); }
+
+  /* ============================================
+     FONT USAGE TABLE
+     ============================================ */
+  .font-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+  }
+  .font-table th, .font-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 15px;
+  }
+  .font-table th {
+    font-weight: 500;
+    font-size: 13px;
+    font-family: var(--mono);
+    text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #888;
+    color: var(--text-muted);
+  }
+  .font-table td:first-child {
+    font-weight: 500;
+    width: 240px;
+  }
+  .font-table .mono-sample { font-family: var(--mono); }
+  .font-table .sans-sample { font-family: var(--sans); }
+
+  /* ============================================
+     SPACING BLOCKS
+     ============================================ */
+  .spacing-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 48px;
+  }
+  .spacing-row {
+    display: grid;
+    grid-template-columns: 120px 80px 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .spacing-name {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .spacing-value {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .spacing-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .spacing-bar {
+    height: 24px;
+    background: var(--btn-primary);
+    border-radius: 4px;
+    min-width: 4px;
+  }
+  .spacing-usage {
+    font-size: 14px;
+    color: var(--text-muted);
+    white-space: nowrap;
   }
 
   /* ============================================
-     COMPONENT ANATOMY
+     GRID DIAGRAM
+     ============================================ */
+  .grid-demo {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .grid-demo-header {
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: white;
+  }
+  .grid-demo-body {
+    padding: 24px 20px;
+    background: var(--page-bg);
+  }
+  .grid-cols-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+  }
+  .grid-col {
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .grid-col.placeholder {
+    background: rgba(38, 38, 37, 0.05);
+    color: rgba(38, 38, 37, 0.25);
+  }
+  .grid-col.filled {
+    background: var(--accent-blue);
+    color: white;
+  }
+  .grid-col.filled-alt {
+    background: rgba(79, 118, 154, 0.3);
+    color: var(--accent-blue);
+  }
+  .grid-section-layouts {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .grid-layout-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .grid-layout-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .grid-layout-detail {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ============================================
+     COMPONENTS
      ============================================ */
   .component-grid {
     display: grid;
@@ -338,7 +550,7 @@
     gap: 24px;
   }
   .component-card {
-    border: 1px solid rgba(38, 38, 37, 0.1);
+    border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
   }
@@ -347,70 +559,84 @@
   }
   .component-preview {
     padding: 32px 24px;
-    min-height: 180px;
+    min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .component-preview.light-bg { background: #FAF9F6; }
+  .component-preview.light-bg { background: var(--page-bg); }
   .component-preview.dark-bg { background: #262625; }
-  .component-preview.page-bg { background: #FAF9F6; }
-
   .component-info {
     padding: 16px 20px;
-    border-top: 1px solid rgba(38, 38, 37, 0.08);
-    background: #FFFFFF;
+    border-top: 1px solid var(--border);
+    background: white;
   }
   .component-name {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 4px;
   }
   .component-desc {
     font-size: 14px;
-    color: #888;
+    color: var(--text-muted);
     line-height: 1.5;
   }
 
-  /* Mini component recreations */
+  /* Mini Navbar */
   .mini-navbar {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
+    padding: 0 20px;
+    height: 56px;
     background: #FAF9F6;
     border-radius: 8px;
     border: 1px solid rgba(38, 38, 37, 0.08);
   }
   .mini-navbar-logo {
+    font-family: var(--mono);
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: #262625;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.02em;
   }
   .mini-navbar-links {
     display: flex;
     gap: 16px;
+    font-family: var(--mono);
     font-size: 13px;
     color: #888;
   }
+  .mini-navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mini-accent-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+  }
   .mini-navbar-toggle {
+    font-family: var(--mono);
     font-size: 12px;
     color: #888;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border: 1px solid rgba(38, 38, 37, 0.12);
     border-radius: 6px;
   }
 
+  /* Buttons */
   .mini-btn {
     display: inline-flex;
     align-items: center;
-    padding: 10px 20px;
-    border-radius: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: var(--mono);
     font-size: 14px;
     font-weight: 500;
-    letter-spacing: -0.01em;
     cursor: default;
     transition: background 0.15s ease;
   }
@@ -424,10 +650,9 @@
     color: #262625;
   }
   .mini-btn.pathway:hover { background: #C5C3BA; }
-  .mini-btn.ghost {
-    background: transparent;
-    color: #262625;
-    border: 1px solid rgba(38, 38, 37, 0.12);
+  .mini-btn.accent-btn {
+    background: var(--accent-blue);
+    color: white;
   }
   .mini-btn.footer-btn {
     background: #E8E6DD;
@@ -436,52 +661,38 @@
 
   .btn-group {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
-    align-items: center;
-  }
-  .btn-label {
-    font-family: var(--mono-font);
-    font-size: 12px;
-    color: #888;
-    margin-top: 6px;
-    text-align: center;
+    align-items: flex-start;
   }
   .btn-stack {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
   }
-
-  .mini-stat-row {
-    display: flex;
-    gap: 32px;
-    width: 100%;
-  }
-  .mini-stat {
-    flex: 1;
-    text-align: left;
-  }
-  .mini-stat-number {
-    font-size: 28px;
-    font-weight: 700;
-    color: #262625;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 4px;
-  }
-  .mini-stat-desc {
+  .btn-label {
+    font-family: var(--mono);
     font-size: 12px;
-    color: #888;
-    line-height: 1.4;
+    color: var(--text-muted);
+    text-align: center;
   }
 
+  /* Blink cursor animation (matching the real site) */
+  @keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  .blink-cursor {
+    animation: blink-cursor 1s ease-in-out infinite;
+  }
+
+  /* Mini cards */
   .mini-card {
     border: 1px solid rgba(38, 38, 37, 0.12);
     border-radius: 10px;
     padding: 20px;
     background: #FAF9F6;
-    width: 100%;
   }
   .mini-card-grid {
     display: grid;
@@ -490,7 +701,7 @@
     width: 100%;
   }
   .mini-card-num {
-    font-family: var(--mono-font);
+    font-family: var(--mono);
     font-size: 15px;
     font-weight: 500;
     color: #262625;
@@ -498,7 +709,7 @@
   }
   .mini-card-title {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #262625;
     margin-bottom: 4px;
   }
@@ -508,6 +719,7 @@
     line-height: 1.5;
   }
 
+  /* Mini pathway cards */
   .mini-pathway-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -521,7 +733,7 @@
   }
   .mini-pathway-title {
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 500;
     color: #262625;
     margin-bottom: 4px;
   }
@@ -532,14 +744,59 @@
   }
   .mini-pathway-btn {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 6px 12px;
     background: #D1CFC6;
     color: #262625;
+    font-family: var(--mono);
     font-size: 13px;
     font-weight: 500;
     border-radius: 6px;
   }
 
+  /* Mini stat row */
+  .mini-stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+  }
+  .mini-stat-number {
+    font-size: 28px;
+    font-weight: 500;
+    color: #262625;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .mini-stat-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #262625;
+    margin-bottom: 2px;
+  }
+  .mini-stat-desc {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  /* Mini badges */
+  .mini-badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mini-badge {
+    font-family: var(--mono);
+    background: #F0EEE6;
+    color: #262625;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* Mini footer */
   .mini-footer {
     width: 100%;
     background: #262625;
@@ -549,7 +806,7 @@
   }
   .mini-footer-heading {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #FFFFFF;
     margin-bottom: 12px;
     line-height: 1.3;
@@ -566,161 +823,189 @@
   }
   .mini-footer-wordmark {
     font-size: 28px;
-    font-weight: 700;
-    color: #FFFFFF;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .mini-team-member {
-    width: 100%;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(38, 38, 37, 0.08);
-  }
-  .mini-team-member:last-child { border-bottom: none; }
-  .mini-team-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: #262625;
-  }
-  .mini-team-role {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 4px;
-  }
-  .mini-team-bio {
-    font-size: 13px;
-    color: #888;
-    line-height: 1.5;
-  }
-
-  .mini-badge-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-  }
-  .mini-badge {
-    background: #F0EEE6;
-    color: #262625;
-    font-size: 13px;
     font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 20px;
+    color: #FFFFFF;
+    letter-spacing: 0.01em;
   }
 
   /* ============================================
-     SECTION PATTERN
+     BRAND ELEMENT CARDS
      ============================================ */
-  .pattern-demo {
-    border: 1px solid rgba(38, 38, 37, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    background: #FAF9F6;
-  }
-  .pattern-demo-section {
-    padding: 32px 28px;
-    border-bottom: 1px solid rgba(38, 38, 37, 0.12);
-    display: flex;
-    align-items: center;
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
   }
-  .pattern-demo-section > *:first-child { flex: 1; min-width: 0; }
-  .pattern-demo-section:last-child { border-bottom: none; }
-  .pattern-annotation {
+  .brand-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .brand-card.full-width {
+    grid-column: 1 / -1;
+  }
+  .brand-preview {
+    padding: 32px 24px;
+    background: var(--page-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+  }
+  .brand-info {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+  .brand-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .brand-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ============================================
+     SECTION ANATOMY DEMO
+     ============================================ */
+  .anatomy-demo {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--page-bg);
+    max-width: 800px;
+  }
+  .anatomy-row {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .anatomy-row:last-child { border-bottom: none; }
+  .anatomy-row > *:first-child { flex: 1; min-width: 0; }
+  .anatomy-label {
     flex-shrink: 0;
-    font-family: var(--mono-font);
+    font-family: var(--mono);
     font-size: 12px;
-    color: #C25B3F;
-    background: rgba(194, 91, 63, 0.06);
+    color: var(--accent-blue);
+    background: rgba(79, 118, 154, 0.08);
     padding: 3px 8px;
     border-radius: 4px;
-    border: 1px solid rgba(194, 91, 63, 0.15);
+    border: 1px solid rgba(79, 118, 154, 0.15);
     white-space: nowrap;
   }
 
   /* ============================================
-     SPACING TOKENS
+     PRINCIPLES
      ============================================ */
-  .spacing-demo {
-    display: flex;
+  .principle-item {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    display: grid;
+    grid-template-columns: 200px 1fr;
     gap: 24px;
-    align-items: flex-end;
   }
-  .spacing-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-  .spacing-visual {
-    background: #E8E6DD;
-    border-radius: 4px;
-    width: 48px;
-  }
-  .spacing-label {
-    font-family: var(--mono-font);
-    font-size: 13px;
-    color: #888;
-  }
-  .spacing-name {
-    font-size: 14px;
+  .principle-item:last-child { border-bottom: none; }
+  .principle-name {
+    font-size: 17px;
     font-weight: 500;
-    color: #262625;
   }
-
-  /* ============================================
-     DO/DON'T
-     ============================================ */
+  .principle-desc {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
   .do-dont-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    margin-top: 32px;
+    margin-top: 40px;
   }
   .do-card, .dont-card {
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid;
   }
-  .do-card { border-color: rgba(38, 38, 37, 0.1); }
-  .dont-card { border-color: rgba(194, 91, 63, 0.2); }
+  .do-card { border-color: rgba(61, 122, 65, 0.2); }
+  .dont-card { border-color: rgba(196, 112, 48, 0.2); }
   .do-card-header, .dont-card-header {
     padding: 12px 16px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
   }
   .do-card-header {
-    background: #FAF9F6;
-    color: #262625;
+    background: rgba(61, 122, 65, 0.04);
+    color: var(--accent-green);
   }
   .dont-card-header {
-    background: rgba(194, 91, 63, 0.04);
-    color: #C25B3F;
+    background: rgba(196, 112, 48, 0.04);
+    color: var(--accent-orange);
   }
   .do-card-body, .dont-card-body {
     padding: 16px;
     font-size: 15px;
     line-height: 1.6;
-    color: #555;
+    color: var(--text-muted);
   }
-  .principle-item {
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(38, 38, 37, 0.06);
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 16px;
+
+  /* ============================================
+     CODE BLOCKS
+     ============================================ */
+  .code-block {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    overflow-x: auto;
+    margin-bottom: 24px;
   }
-  .principle-item:last-child { border-bottom: none; }
-  .principle-name {
+  .code-comment { color: var(--text-muted); }
+  .code-prop { color: var(--accent-blue); }
+  .code-val { color: var(--accent-green); }
+
+  /* ============================================
+     UTILITIES
+     ============================================ */
+  .subsection-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    margin-top: 48px;
+  }
+  .subsection-desc {
+    font-size: 17px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .info-callout {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .info-callout p {
     font-size: 15px;
-    font-weight: 600;
-    color: #262625;
+    color: var(--text-muted);
+    line-height: 1.6;
   }
-  .principle-desc {
-    font-size: 15px;
-    color: #888;
-    line-height: 1.5;
+  .info-callout code {
+    font-family: var(--mono);
+    font-size: 14px;
+    background: var(--page-bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--text-primary);
   }
 </style>
 </head>
@@ -731,14 +1016,14 @@
      ============================================= -->
 <header class="doc-header">
   <div class="doc-header-inner">
-    <a href="/v2" class="back-link">← Back to site</a>
-    <div class="doc-label" style="margin-top:16px;">Design System — Visual Reference</div>
-    <h1 class="doc-title">Many Roads</h1>
-    <p class="doc-subtitle">Living visual reference for all design tokens, typography, and component patterns. Companion to the Notion design system documentation.</p>
+    <a href="/v2" class="back-link">&larr; Back to site</a>
+    <div class="doc-label" style="margin-top:16px;"><span class="accent-slash">//</span> DESIGN_SYSTEM</div>
+    <h1 class="doc-title">Many Roads &lt;AI&gt;</h1>
+    <p class="doc-subtitle">Living visual reference for all design tokens, typography, spacing, grid, and component patterns used in the V2 site. Built to keep the team aligned.</p>
     <div class="doc-meta">
-      <span>v1.0</span>
+      <span>v2.0</span>
       <span>2026-02-19</span>
-      <span>Builder Minimal</span>
+      <span>Geist Sans + Geist Mono</span>
     </div>
   </div>
 </header>
@@ -749,26 +1034,29 @@
 <nav class="doc-nav">
   <div class="doc-nav-inner">
     <a href="#colors">Colors</a>
+    <a href="#accent">Accent</a>
     <a href="#typography">Typography</a>
-    <a href="#buttons">Buttons</a>
+    <a href="#fonts">Fonts</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#grid">Grid</a>
     <a href="#components">Components</a>
-    <a href="#patterns">Patterns</a>
+    <a href="#brand">Brand</a>
     <a href="#principles">Principles</a>
   </div>
 </nav>
 
 <!-- =============================================
-     SECTION: COLORS
+     01 — COLORS
      ============================================= -->
 <section id="colors" class="section">
   <div class="section-inner">
-    <div class="section-marker">01 — COLORS</div>
+    <div class="section-marker"><span class="accent-slash">//</span> 01 &mdash; COLOR_TOKENS</div>
     <h2 class="section-title">Color Tokens</h2>
-    <p class="section-desc">Warm neutrals in both modes. No accent color — hierarchy comes from value shifts within the same warm family.</p>
+    <p class="section-desc">Warm neutrals in both modes. Hierarchy comes from value shifts within the same warm family. Accent colors add a single pop of color via CSS custom property.</p>
 
-    <!-- Color Ramp: Light -->
+    <!-- Light Mode Ramp -->
     <div class="color-ramp-container">
-      <div class="color-ramp-label">Light Mode — Full Ramp (lightest → darkest)</div>
+      <div class="color-ramp-label">Light Mode &mdash; Full Ramp (lightest &rarr; darkest)</div>
       <div class="color-ramp">
         <div class="color-ramp-cell dark-text" style="background:#FAF9F6"><span>#FAF9F6</span></div>
         <div class="color-ramp-cell dark-text" style="background:#F0EEE6"><span>#F0EEE6</span></div>
@@ -781,9 +1069,9 @@
       </div>
     </div>
 
-    <!-- Color Ramp: Dark -->
+    <!-- Dark Mode Ramp -->
     <div class="color-ramp-container">
-      <div class="color-ramp-label">Dark Mode — Full Ramp (darkest → lightest)</div>
+      <div class="color-ramp-label">Dark Mode &mdash; Full Ramp (darkest &rarr; lightest)</div>
       <div class="color-ramp">
         <div class="color-ramp-cell light-text" style="background:#111110"><span>#111110</span></div>
         <div class="color-ramp-cell light-text" style="background:#1A1A18"><span>#1A1A18</span></div>
@@ -799,7 +1087,7 @@
     <!-- Swatch Detail Panels -->
     <div class="color-mode-grid">
       <!-- LIGHT MODE -->
-      <div class="color-mode-panel light">
+      <div class="color-mode-panel light-panel">
         <div class="color-mode-label">Light Mode</div>
 
         <div class="swatch-group">
@@ -807,29 +1095,29 @@
           <div class="swatch-row">
             <div class="swatch-chip bordered" style="background:#FAF9F6"></div>
             <div class="swatch-info">
-              <div class="swatch-name">Page Background</div>
-              <div class="swatch-hex">#FAF9F6 · bg-page</div>
+              <div class="swatch-name">Page &amp; Navbar Background</div>
+              <div class="swatch-hex">#FAF9F6</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#F0EEE6"></div>
             <div class="swatch-info">
-              <div class="swatch-name">Card Fill</div>
-              <div class="swatch-hex">#F0EEE6 · bg-card</div>
+              <div class="swatch-name">Card Fill &amp; Tech Badges</div>
+              <div class="swatch-hex">#F0EEE6</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#E8E6DD"></div>
             <div class="swatch-info">
-              <div class="swatch-name">Primary Button</div>
-              <div class="swatch-hex">#E8E6DD · bg-button-primary</div>
+              <div class="swatch-name">Primary Button Fill</div>
+              <div class="swatch-hex">#E8E6DD</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#D1CFC6"></div>
             <div class="swatch-info">
-              <div class="swatch-name">Pathway Button</div>
-              <div class="swatch-hex">#D1CFC6 · bg-button-pathway</div>
+              <div class="swatch-name">Pathway Button Fill</div>
+              <div class="swatch-hex">#D1CFC6</div>
             </div>
           </div>
         </div>
@@ -840,14 +1128,14 @@
             <div class="swatch-chip" style="background:#262625"></div>
             <div class="swatch-info">
               <div class="swatch-name">Primary Text</div>
-              <div class="swatch-hex">#262625 · text-primary</div>
+              <div class="swatch-hex">#262625</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#888888"></div>
             <div class="swatch-info">
               <div class="swatch-name">Muted Text</div>
-              <div class="swatch-hex">#888888 · text-muted</div>
+              <div class="swatch-hex">#888888</div>
             </div>
           </div>
         </div>
@@ -857,14 +1145,14 @@
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#DEDAD0"></div>
             <div class="swatch-info">
-              <div class="swatch-name">Primary Hover</div>
+              <div class="swatch-name">Primary Button Hover</div>
               <div class="swatch-hex">#DEDAD0</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#C5C3BA"></div>
             <div class="swatch-info">
-              <div class="swatch-name">Pathway Hover</div>
+              <div class="swatch-name">Pathway Button Hover</div>
               <div class="swatch-hex">#C5C3BA</div>
             </div>
           </div>
@@ -883,91 +1171,91 @@
       </div>
 
       <!-- DARK MODE -->
-      <div class="color-mode-panel dark">
+      <div class="color-mode-panel dark-panel">
         <div class="color-mode-label">Dark Mode</div>
 
         <div class="swatch-group" style="background:#111110">
-          <div class="swatch-group-title" style="color:rgba(236,236,234,0.5); border-bottom-color:rgba(236,236,234,0.06)">Backgrounds</div>
+          <div class="swatch-group-title">Backgrounds</div>
           <div class="swatch-row">
             <div class="swatch-chip bordered-dark" style="background:#1A1A18"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Page Background</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#1A1A18 · bg-page</div>
+              <div class="swatch-name">Page &amp; Navbar Background</div>
+              <div class="swatch-hex">#1A1A18</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#262624"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Card Fill</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#262624 · bg-card</div>
+              <div class="swatch-name">Card Fill &amp; Tech Badges</div>
+              <div class="swatch-hex">#262624</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#333331"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Primary Button</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#333331 · bg-button-primary</div>
+              <div class="swatch-name">Primary Button Fill</div>
+              <div class="swatch-hex">#333331</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#3D3D3A"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Pathway Button</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#3D3D3A · bg-button-pathway</div>
+              <div class="swatch-name">Pathway Button Fill</div>
+              <div class="swatch-hex">#3D3D3A</div>
             </div>
           </div>
         </div>
 
         <div class="swatch-group" style="background:#111110">
-          <div class="swatch-group-title" style="color:rgba(236,236,234,0.5); border-bottom-color:rgba(236,236,234,0.06)">Text</div>
+          <div class="swatch-group-title">Text</div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#ECECEA"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Primary Text</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#ECECEA · text-primary</div>
+              <div class="swatch-name">Primary Text</div>
+              <div class="swatch-hex">#ECECEA</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:rgba(236,236,234,0.5)"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Muted Text</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#ECECEA at 50%</div>
+              <div class="swatch-name">Muted Text</div>
+              <div class="swatch-hex">#ECECEA at 50% opacity</div>
             </div>
           </div>
         </div>
 
         <div class="swatch-group" style="background:#111110">
-          <div class="swatch-group-title" style="color:rgba(236,236,234,0.5); border-bottom-color:rgba(236,236,234,0.06)">Hover States</div>
+          <div class="swatch-group-title">Hover States</div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#3D3D3A"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Primary Hover</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#3D3D3A</div>
+              <div class="swatch-name">Primary Button Hover</div>
+              <div class="swatch-hex">#3D3D3A</div>
             </div>
           </div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background:#4A4A47"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Pathway Hover</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#4A4A47</div>
+              <div class="swatch-name">Pathway Button Hover</div>
+              <div class="swatch-hex">#4A4A47</div>
             </div>
           </div>
         </div>
 
         <div class="swatch-group" style="background:#111110">
-          <div class="swatch-group-title" style="color:rgba(236,236,234,0.5); border-bottom-color:rgba(236,236,234,0.06)">Borders</div>
+          <div class="swatch-group-title">Borders</div>
           <div class="swatch-row">
             <div class="swatch-chip" style="background: transparent; box-shadow: inset 0 0 0 3px rgba(236, 236, 234, 0.1);"></div>
             <div class="swatch-info">
-              <div class="swatch-name" style="color:#ECECEA">Default Border</div>
-              <div class="swatch-hex" style="color:rgba(236,236,234,0.5)">#ECECEA at 10% opacity</div>
+              <div class="swatch-name">Default Border</div>
+              <div class="swatch-hex">#ECECEA at 10% opacity</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Footer-specific colors -->
+    <!-- Footer Colors -->
     <div class="color-ramp-container">
       <div class="color-ramp-label">Footer (always dark, both modes)</div>
       <div class="color-ramp" style="height:48px;">
@@ -982,141 +1270,519 @@
 </section>
 
 <!-- =============================================
-     SECTION: TYPOGRAPHY
+     02 — ACCENT COLORS
+     ============================================= -->
+<section id="accent" class="section">
+  <div class="section-inner">
+    <div class="section-marker"><span class="accent-slash">//</span> 02 &mdash; ACCENT_COLORS</div>
+    <h2 class="section-title">Dynamic Accent System</h2>
+    <p class="section-desc">A single accent color adds visual identity without disrupting the neutral palette. Users pick from 5 curated options via a dot picker in the navbar. Default is Blue.</p>
+
+    <div class="accent-grid">
+      <!-- Green -->
+      <div class="accent-card">
+        <div class="accent-swatch" style="background:#3D7A41">
+          <span class="accent-swatch-text">Aa</span>
+        </div>
+        <div class="accent-info">
+          <div class="accent-name">Green</div>
+          <div class="accent-hex">#3D7A41</div>
+          <div class="accent-a11y">
+            <span class="a11y-pass aa">AA</span> 4.7:1 vs white
+          </div>
+        </div>
+      </div>
+      <!-- Mauve -->
+      <div class="accent-card">
+        <div class="accent-swatch" style="background:#8A708A">
+          <span class="accent-swatch-text">Aa</span>
+        </div>
+        <div class="accent-info">
+          <div class="accent-name">Mauve</div>
+          <div class="accent-hex">#8A708A</div>
+          <div class="accent-a11y">
+            <span class="a11y-pass aa-large">AA 18px+</span> 4.1:1
+          </div>
+        </div>
+      </div>
+      <!-- Blue (default) -->
+      <div class="accent-card" style="border-color: var(--accent-blue);">
+        <div class="accent-swatch" style="background:#4F769A">
+          <span class="accent-swatch-text">Aa</span>
+        </div>
+        <div class="accent-info">
+          <div class="accent-name">Blue <span style="font-family:var(--mono); font-size:11px; color:var(--accent-blue); background:rgba(79,118,154,0.1); padding:1px 6px; border-radius:4px; margin-left:4px;">DEFAULT</span></div>
+          <div class="accent-hex">#4F769A</div>
+          <div class="accent-a11y">
+            <span class="a11y-pass aa-large">AA 18px+</span> 4.3:1
+          </div>
+        </div>
+      </div>
+      <!-- Orange -->
+      <div class="accent-card">
+        <div class="accent-swatch" style="background:#C47030">
+          <span class="accent-swatch-text">Aa</span>
+        </div>
+        <div class="accent-info">
+          <div class="accent-name">Orange</div>
+          <div class="accent-hex">#C47030</div>
+          <div class="accent-a11y">
+            <span class="a11y-pass aa-large">AA 18px+</span> 3.5:1
+          </div>
+        </div>
+      </div>
+      <!-- Amber -->
+      <div class="accent-card">
+        <div class="accent-swatch" style="background:#B8892A">
+          <span class="accent-swatch-text">Aa</span>
+        </div>
+        <div class="accent-info">
+          <div class="accent-name">Amber</div>
+          <div class="accent-hex">#B8892A</div>
+          <div class="accent-a11y">
+            <span class="a11y-pass aa-large">AA 18px+</span> 3.1:1
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-callout">
+      <p><strong>How it works:</strong> The selected accent is set as a CSS custom property <code>--accent</code> on the root div. A <code>darkenColor()</code> function generates <code>--accent-hover</code> by multiplying each RGB channel by 0.85. All accent colors pass WCAG AA for the text-lg (18px) size they&rsquo;re used at.</p>
+    </div>
+
+    <div class="subsection-title">Where accent appears</div>
+    <div class="code-block">
+<span class="code-comment">// TypewriterButton &amp; hero CTA</span>
+bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)]
+
+<span class="code-comment">// Section label // slashes</span>
+text-[var(--accent)]
+
+<span class="code-comment">// Nav link hover, footer nav/social hover</span>
+hover:text-[var(--accent)]
+
+<span class="code-comment">// "or talk to our team" link hover</span>
+hover:text-[var(--accent)]
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     03 — TYPOGRAPHY
      ============================================= -->
 <section id="typography" class="section">
   <div class="section-inner">
-    <div class="section-marker">02 — TYPOGRAPHY</div>
-    <h2 class="section-title">Type Scale</h2>
-    <p class="section-desc">Bold headlines, light body. Left-aligned always. Generous line-height for readability.</p>
+    <div class="section-marker"><span class="accent-slash">//</span> 03 &mdash; TYPE_SCALE</div>
+    <h2 class="section-title">Typography</h2>
+    <p class="section-desc">7-tier type scale. All headings use font-medium (weight 500), not bold. Left-aligned always.</p>
 
     <div class="type-specimen">
       <div class="type-specimen-row">
         <div class="type-specimen-meta">
-          <div class="type-specimen-label">Hero Headline</div>
-          <div class="type-specimen-detail">~48–56px · Bold 700<br>Left-aligned, constrained width</div>
+          <div class="type-specimen-label">Hero H1</div>
+          <div class="type-specimen-detail">56px &middot; Medium 500<br>leading-[1.2] tracking-tight<br>Geist Sans</div>
         </div>
-        <div class="type-specimen-example" style="font-size:44px; font-weight:700; letter-spacing:-0.025em; line-height:1.08;">
-          You bought your team AI coding tools six months ago. They're still not faster.
-        </div>
-      </div>
-
-      <div class="type-specimen-row">
-        <div class="type-specimen-meta">
-          <div class="type-specimen-label">Section Heading</div>
-          <div class="type-specimen-detail">~32–36px · Bold 700</div>
-        </div>
-        <div class="type-specimen-example" style="font-size:30px; font-weight:700; letter-spacing:-0.02em; line-height:1.15;">
-          Every AI vendor is selling the same story. Here's what actually happened.
+        <div class="type-specimen-example" style="font-size:48px; font-weight:500; letter-spacing:-0.025em; line-height:1.2;">
+          You bought your team AI coding tools six months ago.
         </div>
       </div>
 
       <div class="type-specimen-row">
         <div class="type-specimen-meta">
-          <div class="type-specimen-label">Card Heading</div>
-          <div class="type-specimen-detail">~20–24px · Semibold 600</div>
+          <div class="type-specimen-label">Stat Values</div>
+          <div class="type-specimen-detail">48px &middot; Medium 500<br>text-5xl tracking-tight<br>Geist Sans</div>
         </div>
-        <div class="type-specimen-example" style="font-size:20px; font-weight:600; letter-spacing:-0.01em; line-height:1.25;">
-          Susan — Director of Engineering
+        <div class="type-specimen-example" style="display:flex; gap:48px; font-size:40px; font-weight:500; letter-spacing:-0.025em;">
+          <span>73%</span>
+          <span>6&ndash;12mo</span>
+          <span>80/20</span>
+          <span>0</span>
+        </div>
+      </div>
+
+      <div class="type-specimen-row">
+        <div class="type-specimen-meta">
+          <div class="type-specimen-label">Section H2</div>
+          <div class="type-specimen-detail">36px &middot; Medium 500<br>text-[36px] leading-[1.2]<br>Geist Sans</div>
+        </div>
+        <div class="type-specimen-example" style="font-size:36px; font-weight:500; letter-spacing:-0.02em; line-height:1.2;">
+          Every AI vendor is selling the same story.
+        </div>
+      </div>
+
+      <div class="type-specimen-row">
+        <div class="type-specimen-meta">
+          <div class="type-specimen-label">Card Titles</div>
+          <div class="type-specimen-detail">24px &middot; Medium 500<br>text-2xl<br>Geist Sans</div>
+        </div>
+        <div class="type-specimen-example" style="font-size:24px; font-weight:500; line-height:1.3;">
+          Trailhead &nbsp;&bull;&nbsp; Wayfinder
+        </div>
+      </div>
+
+      <div class="type-specimen-row">
+        <div class="type-specimen-meta">
+          <div class="type-specimen-label">Subheadings</div>
+          <div class="type-specimen-detail">20px &middot; Medium 500<br>text-xl<br>Geist Sans</div>
+        </div>
+        <div class="type-specimen-example" style="font-size:20px; font-weight:500; line-height:1.4;">
+          Susan &mdash; Director of Engineering
+        </div>
+      </div>
+
+      <div class="type-specimen-row">
+        <div class="type-specimen-meta">
+          <div class="type-specimen-label">UI Elements</div>
+          <div class="type-specimen-detail">18px &middot; Medium 500<br>text-lg<br>Geist Mono (see Fonts section)</div>
+        </div>
+        <div class="type-specimen-example" style="font-family:var(--mono); font-size:18px; font-weight:500; display:flex; gap:24px; flex-wrap:wrap; color:var(--text-muted);">
+          <span>Trailhead</span>
+          <span>Wayfinder</span>
+          <span>Run the assessment_</span>
         </div>
       </div>
 
       <div class="type-specimen-row">
         <div class="type-specimen-meta">
           <div class="type-specimen-label">Body Text</div>
-          <div class="type-specimen-detail">~16–18px · Regular 400<br>Line-height ~1.6</div>
+          <div class="type-specimen-detail">17px &middot; Regular 400<br>text-[17px] leading-[1.6]<br>Geist Sans</div>
         </div>
-        <div class="type-specimen-example" style="font-size:16px; font-weight:400; line-height:1.65; color:#555; max-width:560px;">
-          The vendor promised that the magic of AI is in the tool. It's not — the magic is in how it interacts with your codebase. And your codebase wasn't built for AI.
-        </div>
-      </div>
-
-      <div class="type-specimen-row">
-        <div class="type-specimen-meta">
-          <div class="type-specimen-label">Small / Muted</div>
-          <div class="type-specimen-detail">~14px · Regular 400<br>Used for descriptions, labels</div>
-        </div>
-        <div class="type-specimen-example" style="font-size:14px; font-weight:400; color:#888; line-height:1.6;">
-          Lower acceptance rates mean less productivity gain, longer ramp times, and growing frustration among developers who expected a workflow transformation.
+        <div class="type-specimen-example" style="font-size:17px; font-weight:400; line-height:1.6; color:var(--text-muted); max-width:560px;">
+          The vendor promised that the magic of AI is in the tool. It&rsquo;s not &mdash; the magic is in how it interacts with your codebase.
         </div>
       </div>
 
       <div class="type-specimen-row">
         <div class="type-specimen-meta">
-          <div class="type-specimen-label">Section Marker</div>
-          <div class="type-specimen-detail">~12–14px · Mono Medium 500<br>Uppercase, underscore convention</div>
+          <div class="type-specimen-label">Small UI</div>
+          <div class="type-specimen-detail">14px &middot; Regular/Medium<br>text-sm<br>Geist Mono for badges, toggle</div>
         </div>
-        <div class="type-specimen-example" style="font-family:var(--mono-font); font-size:13px; font-weight:500; color:#888; letter-spacing:0.04em;">
-          04 — THE_TEAM
+        <div class="type-specimen-example" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <span style="font-family:var(--mono); font-size:14px; color:#888; border:1px solid rgba(38,38,37,0.12); padding:3px 10px; border-radius:6px;">[ dark_ ]</span>
+          <span style="font-family:var(--mono); font-size:14px; color:#262625; background:#F0EEE6; padding:4px 12px; border-radius:20px;">TypeScript</span>
+          <span style="font-family:var(--mono); font-size:14px; color:#888;">LinkedIn &#8599;</span>
         </div>
       </div>
     </div>
 
-    <!-- Section Markers Reference -->
-    <div class="section-marker" style="margin-top:8px;">Section Marker Convention</div>
-    <p style="font-size:15px; color:#888; margin-bottom:16px;">Underscore naming nods to programming variable conventions — signals "this is for engineers."</p>
-    <div class="type-section-marker">
-      <span class="marker-chip">01 — THE_PROBLEM</span>
-      <span class="marker-chip">02 — THE_SAME_STILL</span>
-      <span class="marker-chip">03 — TWO_PATHS</span>
-      <span class="marker-chip">04 — THE_TEAM</span>
-      <span class="marker-chip">05 — WE_CARE</span>
+    <!-- Section Marker Convention -->
+    <div class="subsection-title">Section Marker Convention</div>
+    <p class="subsection-desc">Code-style labels that signal &ldquo;this is for engineers.&rdquo; Uses <code style="font-family:var(--mono); background:var(--page-bg); padding:1px 5px; border-radius:4px; font-size:14px;">// 0X &mdash; LABEL_NAME</code> format with the <code style="font-family:var(--mono); background:var(--page-bg); padding:1px 5px; border-radius:4px; font-size:14px;">//</code> rendered in the accent color.</p>
+    <div class="marker-row">
+      <span class="marker-chip"><span class="accent-slash">//</span> 01 &mdash; THE_PROBLEM</span>
+      <span class="marker-chip"><span class="accent-slash">//</span> 02 &mdash; WHY_TEAMS_STALL</span>
+      <span class="marker-chip"><span class="accent-slash">//</span> 03 &mdash; TWO_PATHWAYS</span>
+      <span class="marker-chip"><span class="accent-slash">//</span> 04 &mdash; THE_TEAM</span>
+      <span class="marker-chip"><span class="accent-slash">//</span> 05 &mdash; WHY_TRUST_US</span>
     </div>
   </div>
 </section>
 
 <!-- =============================================
-     SECTION: BUTTONS
+     04 — FONTS
      ============================================= -->
-<section id="buttons" class="section">
+<section id="fonts" class="section">
   <div class="section-inner">
-    <div class="section-marker">03 — BUTTONS</div>
-    <h2 class="section-title">Button Styles</h2>
-    <p class="section-desc">Warm neutral fills with subtle darkening on hover. No outline/primary color distinction — hierarchy comes from placement and context.</p>
+    <div class="section-marker"><span class="accent-slash">//</span> 04 &mdash; FONT_SETUP</div>
+    <h2 class="section-title">Font Families</h2>
+    <p class="section-desc">Two fonts from the Geist family. Sans for content, Mono for UI chrome and developer-facing elements.</p>
 
-    <div class="btn-group" style="margin-bottom:32px;">
-      <div class="btn-stack">
-        <div class="mini-btn primary">Run the assessment</div>
-        <div class="btn-label">Primary · #E8E6DD</div>
+    <div class="subsection-title" style="margin-top:0;">Geist Sans</div>
+    <p class="subsection-desc">Applied to the root div via inline style. Also set on h1, h2, h3 in index.css. Used for all body text and headings.</p>
+    <div class="code-block">
+<span class="code-comment">// Root div inline style</span>
+style={{ <span class="code-prop">fontFamily</span>: <span class="code-val">'"Geist Sans", sans-serif'</span> }}
+
+<span class="code-comment">// index.css rule</span>
+h1, h2, h3 { <span class="code-prop">font-family</span>: <span class="code-val">"Geist Sans", sans-serif</span>; }
+    </div>
+    <table class="font-table">
+      <thead>
+        <tr><th>Element</th><th>Font</th><th>Sample</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Hero headline</td><td>Geist Sans, 56px, medium</td><td class="sans-sample" style="font-size:20px; font-weight:500;">You bought your team AI tools</td></tr>
+        <tr><td>Section headings</td><td>Geist Sans, 36px, medium</td><td class="sans-sample" style="font-size:20px; font-weight:500;">Every AI vendor is selling</td></tr>
+        <tr><td>Body paragraphs</td><td>Geist Sans, 17px, regular</td><td class="sans-sample" style="font-size:17px; color:var(--text-muted);">The tools aren&rsquo;t the problem.</td></tr>
+        <tr><td>Stat values</td><td>Geist Sans, 48px, medium</td><td class="sans-sample" style="font-size:20px; font-weight:500;">73% &middot; 6&ndash;12mo &middot; 80/20</td></tr>
+        <tr><td>Team names</td><td>Geist Sans, 20px, medium</td><td class="sans-sample" style="font-size:17px; font-weight:500;">Susan &mdash; Director of Engineering</td></tr>
+        <tr><td>Service card numbers</td><td>Geist Sans, 18px, medium</td><td class="sans-sample" style="font-size:17px; font-weight:500;">(01) &middot; (02) &middot; (03) &middot; (04)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title">Geist Mono</div>
+    <p class="subsection-desc">Applied via the shared <code style="font-family:var(--mono); background:var(--page-bg); padding:1px 5px; border-radius:4px; font-size:14px;">MONO</code> constant. Used for all developer-flavored UI chrome.</p>
+    <div class="code-block">
+<span class="code-comment">// Shared inline style constant</span>
+const <span class="code-prop">MONO</span> = { <span class="code-prop">fontFamily</span>: <span class="code-val">'"Geist Mono", monospace'</span> };
+    </div>
+    <table class="font-table">
+      <thead>
+        <tr><th>Element</th><th>Size</th><th>Sample</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Logo</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500;">Many_Roads &lt;AI&gt;</td></tr>
+        <tr><td>Nav links</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500; color:var(--text-muted);">Trailhead &nbsp; Wayfinder &nbsp; Team &nbsp; Contact</td></tr>
+        <tr><td>Section labels</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500;"><span style="color:var(--accent-blue)">//</span> 01 &mdash; THE_PROBLEM</td></tr>
+        <tr><td>PrimaryButton</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500; background:var(--btn-primary); display:inline-block; padding:4px 12px; border-radius:6px;">Run Trailhead_</td></tr>
+        <tr><td>TypewriterButton</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500; background:var(--accent-blue); color:white; display:inline-block; padding:4px 12px; border-radius:6px;">See where you stand<span class="blink-cursor">_</span></td></tr>
+        <tr><td>Pathway buttons</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500; background:var(--btn-pathway); display:inline-block; padding:4px 12px; border-radius:6px;">Run the assessment<span class="blink-cursor">_</span></td></tr>
+        <tr><td>Dark mode toggle</td><td>text-sm (14px)</td><td class="mono-sample" style="font-size:14px; color:var(--text-muted); border:1px solid var(--border); display:inline-block; padding:2px 8px; border-radius:6px;">[ dark_ ]</td></tr>
+        <tr><td>Tech badges</td><td>text-sm (14px)</td><td class="mono-sample" style="font-size:14px; background:var(--card-bg); display:inline-block; padding:3px 10px; border-radius:20px;">TypeScript</td></tr>
+        <tr><td>LinkedIn links</td><td>text-sm (14px)</td><td class="mono-sample" style="font-size:14px; color:var(--text-muted);">LinkedIn &#8599;</td></tr>
+        <tr><td>Footer nav &amp; social</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500;">Trailhead &nbsp; Twitter &nbsp; Instagram</td></tr>
+        <tr><td>&ldquo;or talk to our team&rdquo;</td><td>text-lg (18px)</td><td class="mono-sample" style="font-weight:500; color:var(--text-muted); text-decoration:underline; text-underline-offset:4px;">or talk to our team</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- =============================================
+     05 — SPACING
+     ============================================= -->
+<section id="spacing" class="section">
+  <div class="section-inner">
+    <div class="section-marker"><span class="accent-slash">//</span> 05 &mdash; SPACING_SYSTEM</div>
+    <h2 class="section-title">Vertical Rhythm</h2>
+    <p class="section-desc">Generous vertical spacing creates breathing room. All values use Tailwind&rsquo;s spacing scale (1 unit = 4px).</p>
+
+    <div class="spacing-table">
+      <div class="spacing-row">
+        <div class="spacing-name">Hero padding</div>
+        <div class="spacing-value">96px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:96px;"></div>
+          <span class="spacing-usage">pt-24 pb-24 on hero section</span>
+        </div>
       </div>
-      <div class="btn-stack">
-        <div class="mini-btn pathway">Get the assessment</div>
-        <div class="btn-label">Pathway · #D1CFC6</div>
+      <div class="spacing-row">
+        <div class="spacing-name">Section padding</div>
+        <div class="spacing-value">128px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:128px;"></div>
+          <span class="spacing-usage">py-32 on sections 01&ndash;05</span>
+        </div>
       </div>
-      <div class="btn-stack">
-        <div class="mini-btn ghost">Talk to our team</div>
-        <div class="btn-label">Ghost / Secondary</div>
+      <div class="spacing-row">
+        <div class="spacing-name">Inner padding</div>
+        <div class="spacing-value">96px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:96px;"></div>
+          <span class="spacing-usage">pt-24 after border-t on sections 01&ndash;05</span>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-name">Header &rarr; content</div>
+        <div class="spacing-value">64px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:64px;"></div>
+          <span class="spacing-usage">mb-16 between section header and content</span>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-name">Label &rarr; heading</div>
+        <div class="spacing-value">48px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:48px;"></div>
+          <span class="spacing-usage">mt-12 between SectionLabel and H2</span>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-name">Footer padding</div>
+        <div class="spacing-value">96px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:96px;"></div>
+          <span class="spacing-usage">py-24 on footer</span>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-name">Card padding</div>
+        <div class="spacing-value">40px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:40px;"></div>
+          <span class="spacing-usage">p-10 on pathway cards</span>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-name">Container padding</div>
+        <div class="spacing-value">48px</div>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:48px;"></div>
+          <span class="spacing-usage">px-12 on max-w-[1280px] container</span>
+        </div>
       </div>
     </div>
 
-    <div class="color-ramp-label">Hover Behavior</div>
-    <p style="font-size:15px; color:#888; margin-bottom:16px; max-width:480px;">Buttons darken by one step on hover — moving down the warm neutral ramp. No color shift, no shadow change, just a value shift.</p>
+    <div class="subsection-title">Section Structure Pattern</div>
+    <p class="subsection-desc">Every content section (01&ndash;05) follows the same vertical structure: outer padding, border-top, inner padding, then content.</p>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:480px;">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <div style="width:32px; height:32px; border-radius:6px; background:#E8E6DD;"></div>
-        <span style="font-family:var(--mono-font); font-size:13px; color:#888;">→</span>
-        <div style="width:32px; height:32px; border-radius:6px; background:#DEDAD0;"></div>
-        <span style="font-size:13px; color:#888;">Primary hover</span>
+    <div class="anatomy-demo">
+      <div class="anatomy-row" style="background:rgba(79,118,154,0.03);">
+        <div style="font-family:var(--mono); font-size:13px; color:var(--text-muted);">py-32 (128px top + bottom padding)</div>
+        <div class="anatomy-label">Outer padding</div>
       </div>
-      <div style="display:flex; align-items:center; gap:12px;">
-        <div style="width:32px; height:32px; border-radius:6px; background:#D1CFC6;"></div>
-        <span style="font-family:var(--mono-font); font-size:13px; color:#888;">→</span>
-        <div style="width:32px; height:32px; border-radius:6px; background:#C5C3BA;"></div>
-        <span style="font-size:13px; color:#888;">Pathway hover</span>
+      <div class="anatomy-row">
+        <div style="height:1px; background:var(--border); width:100%;"></div>
+        <div class="anatomy-label">border-t</div>
+      </div>
+      <div class="anatomy-row" style="background:rgba(79,118,154,0.03);">
+        <div style="font-family:var(--mono); font-size:13px; color:var(--text-muted);">pt-24 (96px after border)</div>
+        <div class="anatomy-label">Inner padding</div>
+      </div>
+      <div class="anatomy-row">
+        <div>
+          <div style="font-family:var(--mono); font-size:14px; font-weight:500; margin-bottom:6px;"><span style="color:var(--accent-blue);">//</span> 0X &mdash; LABEL</div>
+          <div style="font-size:24px; font-weight:500; margin-bottom:4px;">Section heading</div>
+        </div>
+        <div class="anatomy-label">Header area</div>
+      </div>
+      <div class="anatomy-row" style="background:rgba(79,118,154,0.03);">
+        <div style="font-family:var(--mono); font-size:13px; color:var(--text-muted);">mb-16 (64px gap)</div>
+        <div class="anatomy-label">Header &rarr; content gap</div>
+      </div>
+      <div class="anatomy-row">
+        <div style="background:var(--card-bg); border-radius:8px; padding:16px;">
+          <div style="font-size:14px; color:var(--text-muted);">Section content (stats, cards, bios, etc.)</div>
+        </div>
+        <div class="anatomy-label">Content block</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- =============================================
-     SECTION: COMPONENTS
+     06 — GRID
+     ============================================= -->
+<section id="grid" class="section">
+  <div class="section-inner">
+    <div class="section-marker"><span class="accent-slash">//</span> 06 &mdash; GRID_SYSTEM</div>
+    <h2 class="section-title">12-Column Grid</h2>
+    <p class="section-desc">All sections use <code style="font-family:var(--mono); background:white; padding:1px 5px; border-radius:4px; font-size:14px;">grid grid-cols-12 gap-x-6</code> within a <code style="font-family:var(--mono); background:white; padding:1px 5px; border-radius:4px; font-size:14px;">max-w-[1280px] mx-auto px-12</code> container.</p>
+
+    <!-- Base grid visualization -->
+    <div class="grid-demo">
+      <div class="grid-demo-header">12-column base grid &middot; gap-x-6 (24px gutters)</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12">
+          <div class="grid-col placeholder">1</div>
+          <div class="grid-col placeholder">2</div>
+          <div class="grid-col placeholder">3</div>
+          <div class="grid-col placeholder">4</div>
+          <div class="grid-col placeholder">5</div>
+          <div class="grid-col placeholder">6</div>
+          <div class="grid-col placeholder">7</div>
+          <div class="grid-col placeholder">8</div>
+          <div class="grid-col placeholder">9</div>
+          <div class="grid-col placeholder">10</div>
+          <div class="grid-col placeholder">11</div>
+          <div class="grid-col placeholder">12</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection-title" style="margin-top:32px;">Section Layouts</div>
+    <p class="subsection-desc">Each section maps content onto the grid differently. Column 5 starts offset content, creating visual weight on the right.</p>
+
+    <!-- Hero -->
+    <div class="grid-demo" style="margin-bottom:16px;">
+      <div class="grid-demo-header">Hero &mdash; 5 / gutter / 6</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12">
+          <div class="grid-col filled" style="grid-column:span 5;">H1 headline</div>
+          <div class="grid-col placeholder">·</div>
+          <div class="grid-col filled-alt" style="grid-column:span 6;">Supporting copy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About (01) -->
+    <div class="grid-demo" style="margin-bottom:16px;">
+      <div class="grid-demo-header">01 THE_PROBLEM &mdash; 4 / 8 (label+heading left, narrative right)</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12" style="margin-bottom:8px;">
+          <div class="grid-col filled" style="grid-column:span 4;">Label + H2</div>
+          <div class="grid-col filled-alt" style="grid-column: 5 / span 8;">Narrative text</div>
+        </div>
+        <div class="grid-cols-12">
+          <div class="grid-col filled-alt" style="grid-column:span 3;">Stat 1</div>
+          <div class="grid-col filled-alt" style="grid-column:span 3;">Stat 2</div>
+          <div class="grid-col filled-alt" style="grid-column:span 3;">Stat 3</div>
+          <div class="grid-col filled-alt" style="grid-column:span 3;">Stat 4</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services (02) -->
+    <div class="grid-demo" style="margin-bottom:16px;">
+      <div class="grid-demo-header">02 WHY_TEAMS_STALL &mdash; 4 / 8 (label left, heading + 2&times;2 cards right)</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12">
+          <div class="grid-col filled" style="grid-column:span 4;">Label</div>
+          <div class="grid-col filled-alt" style="grid-column: 5 / span 8;">H2 + 2&times;2 card grid</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pathways (03) -->
+    <div class="grid-demo" style="margin-bottom:16px;">
+      <div class="grid-demo-header">03 TWO_PATHWAYS &mdash; 5+6 header, then 6+6 cards</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12" style="margin-bottom:8px;">
+          <div class="grid-col filled" style="grid-column:span 5;">H2 + body</div>
+          <div class="grid-col placeholder">·</div>
+          <div class="grid-col filled-alt" style="grid-column:span 6;">Label (right-aligned)</div>
+        </div>
+        <div class="grid-cols-12">
+          <div class="grid-col filled-alt" style="grid-column:span 6;">Trailhead card</div>
+          <div class="grid-col filled-alt" style="grid-column:span 6;">Wayfinder card</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team (04) -->
+    <div class="grid-demo" style="margin-bottom:16px;">
+      <div class="grid-demo-header">04 THE_TEAM &mdash; 4 / 8 (label+heading left, bios+badges right)</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12">
+          <div class="grid-col filled" style="grid-column:span 4;">Label + H2</div>
+          <div class="grid-col filled-alt" style="grid-column: 5 / span 8;">Bios + badges</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credibility (05) -->
+    <div class="grid-demo" style="margin-bottom:16px;">
+      <div class="grid-demo-header">05 WHY_TRUST_US &mdash; 4 / 8 (label left, content right)</div>
+      <div class="grid-demo-body">
+        <div class="grid-cols-12">
+          <div class="grid-col filled" style="grid-column:span 4;">Label</div>
+          <div class="grid-col filled-alt" style="grid-column: 5 / span 8;">H2 + methodology + quotes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="grid-demo">
+      <div class="grid-demo-header">Footer &mdash; 3-column grid (not 12-col, uses grid-cols-3 gap-16)</div>
+      <div class="grid-demo-body">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
+          <div class="grid-col filled-alt">Contact info</div>
+          <div class="grid-col filled-alt">Navigation</div>
+          <div class="grid-col filled-alt">Social</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     07 — COMPONENTS
      ============================================= -->
 <section id="components" class="section">
   <div class="section-inner">
-    <div class="section-marker">04 — COMPONENTS</div>
+    <div class="section-marker"><span class="accent-slash">//</span> 07 &mdash; COMPONENTS</div>
     <h2 class="section-title">Component Library</h2>
-    <p class="section-desc">Miniature recreations of each major UI component, showing structure and token usage in context.</p>
+    <p class="section-desc">Miniature recreations of each major UI component showing structure and token usage in context.</p>
 
     <div class="component-grid">
 
@@ -1124,130 +1790,160 @@
       <div class="component-card full-width">
         <div class="component-preview light-bg">
           <div class="mini-navbar">
-            <div class="mini-navbar-logo">Many Roads Agentic</div>
+            <div class="mini-navbar-logo">Many_Roads &lt;AI&gt;</div>
             <div class="mini-navbar-links">
               <span>Trailhead</span>
               <span>Wayfinder</span>
               <span>Team</span>
-              <span>Almanac</span>
+              <span>Contact</span>
             </div>
-            <div style="display:flex; gap:12px; align-items:center;">
-              <div class="mini-navbar-toggle">☀ Light</div>
-              <span style="font-size:13px; color:#888;">Log in</span>
+            <div class="mini-navbar-right">
+              <div class="mini-accent-dot"></div>
+              <div class="mini-navbar-toggle">[ dark_ ]</div>
             </div>
           </div>
         </div>
         <div class="component-info">
           <div class="component-name">Navbar</div>
-          <div class="component-desc">Sticky. bg-page background. Logo left, links center, toggle + auth right. Muted text for links, primary for logo.</div>
+          <div class="component-desc">Sticky, bg-page background, h-[77px]. Logo + nav links + accent dot picker + dark mode toggle. All text in Geist Mono at text-lg except toggle at text-sm.</div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="component-card full-width">
+        <div class="component-preview light-bg" style="flex-direction:column; gap:20px;">
+          <div class="btn-group">
+            <div class="btn-stack">
+              <div class="mini-btn accent-btn">See where you stand<span class="blink-cursor" style="color:white;">_</span></div>
+              <div class="btn-label">TypewriterButton &middot; accent bg</div>
+            </div>
+            <div class="btn-stack">
+              <div class="mini-btn primary">Run Trailhead<span class="blink-cursor">_</span></div>
+              <div class="btn-label">PrimaryButton &middot; #E8E6DD</div>
+            </div>
+            <div class="btn-stack">
+              <div class="mini-btn pathway">Run the assessment<span class="blink-cursor">_</span></div>
+              <div class="btn-label">Pathway &middot; #D1CFC6</div>
+            </div>
+          </div>
+          <div style="font-size:14px; color:var(--text-muted); max-width:480px; line-height:1.5;">All buttons use Geist Mono at text-lg (18px), rounded-lg, px-4 py-2. Trailing underscore with blink-cursor animation replaces arrow icons.</div>
+        </div>
+        <div class="component-info">
+          <div class="component-name">Buttons</div>
+          <div class="component-desc">Three tiers: accent (TypewriterButton), primary (#E8E6DD), pathway (#D1CFC6). All hover by darkening one step. No outline or ghost variant in current design.</div>
         </div>
       </div>
 
       <!-- Stat Row -->
       <div class="component-card full-width">
-        <div class="component-preview page-bg">
+        <div class="component-preview light-bg" style="padding:24px;">
           <div class="mini-stat-row">
-            <div class="mini-stat">
+            <div>
               <div class="mini-stat-number">73%</div>
-              <div class="mini-stat-desc">Lower acceptance rates<br>than vendor claims</div>
+              <div class="mini-stat-label">Unmet expectations</div>
+              <div class="mini-stat-desc">Of engineering teams report AI tool adoption hasn&rsquo;t met productivity expectations.</div>
             </div>
-            <div class="mini-stat">
-              <div class="mini-stat-number">6–12mo</div>
-              <div class="mini-stat-desc">Delayed momentum<br>before value</div>
+            <div>
+              <div class="mini-stat-number">6&ndash;12mo</div>
+              <div class="mini-stat-label">Delayed recognition</div>
+              <div class="mini-stat-desc">Typical time before leaders realize AI tools are underperforming.</div>
             </div>
-            <div class="mini-stat">
+            <div>
               <div class="mini-stat-number">80/20</div>
-              <div class="mini-stat-desc">The adoption gap between<br>greenfield vs legacy</div>
+              <div class="mini-stat-label">The adoption gap</div>
+              <div class="mini-stat-desc">Gap between reported vs actual productive usage.</div>
             </div>
-            <div class="mini-stat">
+            <div>
               <div class="mini-stat-number">0</div>
-              <div class="mini-stat-desc">Teams with impact tools<br>out of the box</div>
+              <div class="mini-stat-label">Pre-configured tools</div>
+              <div class="mini-stat-desc">Number of AI tools that ship configured for your codebase.</div>
             </div>
           </div>
         </div>
         <div class="component-info">
-          <div class="component-name">Stat Row</div>
-          <div class="component-desc">4-up horizontal layout. Bold numbers in text-primary, descriptions in text-muted. Separated by spacing.</div>
+          <div class="component-name">Stat Cards (4-up)</div>
+          <div class="component-desc">col-span-3 each in the 12-col grid. Value at text-5xl (48px), label at text-xl (20px), description at text-[17px] in muted. All Geist Sans.</div>
         </div>
       </div>
 
-      <!-- Pain Point Cards -->
+      <!-- Service Cards -->
       <div class="component-card full-width">
-        <div class="component-preview page-bg" style="padding:24px;">
+        <div class="component-preview light-bg" style="padding:24px;">
           <div class="mini-card-grid">
             <div class="mini-card">
-              <div class="mini-card-num">001</div>
-              <div class="mini-card-title">The tools require a reprint.</div>
-              <div class="mini-card-text">You've heard this before. "Just train the engineers." But it's not training that's broken.</div>
+              <div class="mini-card-num">(01)</div>
+              <div class="mini-card-title">The senior engineers opted out.</div>
+              <div class="mini-card-text">They tried the AI suggestions. Found them wrong more often than helpful.</div>
             </div>
             <div class="mini-card">
-              <div class="mini-card-num">002</div>
-              <div class="mini-card-title">The pains go beyond tools.</div>
-              <div class="mini-card-text">Tech debt, inconsistent patterns, undocumented architecture.</div>
+              <div class="mini-card-num">(02)</div>
+              <div class="mini-card-title">The junior engineers over-trust.</div>
+              <div class="mini-card-text">Accepting code that looks correct but violates architectural patterns.</div>
             </div>
             <div class="mini-card">
-              <div class="mini-card-num">003</div>
-              <div class="mini-card-title">The metrics tell mystery stories.</div>
-              <div class="mini-card-text">Acceptance rates don't tell the whole story.</div>
+              <div class="mini-card-num">(03)</div>
+              <div class="mini-card-title">The tools are on factory defaults.</div>
+              <div class="mini-card-text">Nobody configured them for your codebase or naming conventions.</div>
             </div>
             <div class="mini-card">
-              <div class="mini-card-num">004</div>
-              <div class="mini-card-title">Leadership is losing patience.</div>
-              <div class="mini-card-text">Execs see the license cost. They expected transformation.</div>
+              <div class="mini-card-num">(04)</div>
+              <div class="mini-card-title">Leadership is measuring wrong.</div>
+              <div class="mini-card-text">Seat activations don&rsquo;t correlate with cycle time or quality.</div>
             </div>
           </div>
         </div>
         <div class="component-info">
-          <div class="component-name">Pain Point Cards (2×2)</div>
-          <div class="component-desc">bg-page fill with border-default stroke. Numbered with mono labels. Bold title + muted description.</div>
+          <div class="component-name">Problem Cards (2&times;2)</div>
+          <div class="component-desc">Inside col-start-5 col-span-8. grid-cols-2 with gap-x-16 gap-y-20. Each card has border-t, (0X) numbering at text-lg, title + muted description. All Geist Sans.</div>
         </div>
       </div>
 
       <!-- Pathway Cards -->
       <div class="component-card full-width">
-        <div class="component-preview page-bg" style="padding:24px;">
+        <div class="component-preview light-bg" style="padding:24px;">
           <div class="mini-pathway-grid">
             <div class="mini-pathway-card">
               <div class="mini-pathway-title">Trailhead</div>
               <div class="mini-pathway-sub">Find out where you actually stand.</div>
-              <div class="mini-pathway-btn">Get the assessment</div>
+              <div class="mini-pathway-btn">Run the assessment<span class="blink-cursor">_</span></div>
             </div>
             <div class="mini-pathway-card">
               <div class="mini-pathway-title">Wayfinder</div>
-              <div class="mini-pathway-sub">Get engineers in the team, not slides.</div>
-              <div class="mini-pathway-btn">Learn more about Wayfinder</div>
+              <div class="mini-pathway-sub">Get engineers in the room, not slides.</div>
+              <div class="mini-pathway-btn">Learn more about Wayfinder<span class="blink-cursor">_</span></div>
             </div>
           </div>
         </div>
         <div class="component-info">
           <div class="component-name">Pathway Cards</div>
-          <div class="component-desc">bg-card fill. Primary conversion components. Pathway button style (#D1CFC6). Two-column layout.</div>
+          <div class="component-desc">col-span-6 each. bg-card (#F0EEE6) fill, rounded-lg, p-10. Title at text-2xl (24px), subtitle at text-xl (20px). Pathway button (#D1CFC6) with trailing underscore blink.</div>
         </div>
       </div>
 
-      <!-- Team Member -->
+      <!-- Team + Badges -->
       <div class="component-card">
-        <div class="component-preview page-bg" style="flex-direction:column; align-items:flex-start; padding:24px;">
-          <div class="mini-team-member">
-            <div class="mini-team-name">Susan — Director of Engineering</div>
-            <div class="mini-team-role">PhD, Software Engineering · Former McKinsey</div>
-            <div class="mini-team-bio">15+ years building and leading engineering teams across consulting and technology.</div>
+        <div class="component-preview light-bg" style="flex-direction:column; align-items:flex-start; padding:24px; gap:0;">
+          <div style="width:100%; padding:12px 0; border-bottom:1px solid rgba(38,38,37,0.08);">
+            <div style="font-size:15px; font-weight:500;">Susan &mdash; Director of Engineering</div>
+            <div style="font-size:13px; color:#888; margin-top:4px; line-height:1.5;">PhD in software engineering. Former McKinsey.</div>
+            <div style="font-family:var(--mono); font-size:12px; color:#888; margin-top:4px;">LinkedIn &#8599;</div>
           </div>
-          <div class="mini-team-member">
-            <div class="mini-team-name">Jeff — VP of Engineering</div>
-            <div class="mini-team-role">15+ years leading engineering organizations</div>
+          <div style="width:100%; padding:12px 0;">
+            <div style="font-size:15px; font-weight:500;">Jeff &mdash; VP of Engineering</div>
+            <div style="font-size:13px; color:#888; margin-top:4px; line-height:1.5;">15+ years leading engineering teams.</div>
+            <div style="font-family:var(--mono); font-size:12px; color:#888; margin-top:4px;">LinkedIn &#8599;</div>
           </div>
-          <div class="mini-badge-row">
+          <div class="mini-badge-row" style="margin-top:12px;">
             <span class="mini-badge">TypeScript</span>
             <span class="mini-badge">Python</span>
             <span class="mini-badge">Go</span>
+            <span class="mini-badge">Rust</span>
             <span class="mini-badge">React</span>
-            <span class="mini-badge">Node.js</span>
           </div>
         </div>
         <div class="component-info">
-          <div class="component-name">Team Section + Tech Badges</div>
-          <div class="component-desc">Vertical stack with dividers. Badges use bg-card fill with pill shape.</div>
+          <div class="component-name">Team Bios + Tech Badges</div>
+          <div class="component-desc">Names at text-xl, bios at text-[17px] muted. LinkedIn links in Geist Mono text-sm. Badges: bg-card, rounded-full, Geist Mono text-sm.</div>
         </div>
       </div>
 
@@ -1255,19 +1951,21 @@
       <div class="component-card">
         <div class="component-preview" style="background:#1a1a18; padding:24px; align-items:flex-start;">
           <div class="mini-footer">
-            <div class="mini-footer-heading">Every team's path looks different. Let's figure out yours.</div>
-            <div style="display:flex; gap:8px; margin-bottom:8px;">
-              <div class="mini-btn footer-btn" style="font-size:13px; padding:6px 12px;">Run the assessment</div>
+            <div class="mini-footer-heading">Every team&rsquo;s path looks different. Let&rsquo;s figure out yours.</div>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:8px;">
+              <div class="mini-btn footer-btn" style="font-size:13px; padding:4px 10px; width:fit-content;">Run Trailhead<span class="blink-cursor">_</span></div>
+              <div class="mini-btn footer-btn" style="font-size:13px; padding:4px 10px; width:fit-content;">Book a conversation<span class="blink-cursor">_</span></div>
             </div>
+            <div class="mini-footer-sub">30 minutes. No pitch deck.</div>
             <div class="mini-footer-divider"></div>
-            <div class="mini-footer-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb939e979794bb969a958289949a9f88d59a92">[email&#160;protected]</a> · (416) 555-4567</div>
+            <div style="font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.6); margin-bottom:8px;">hello@manyroads.ai</div>
             <div class="mini-footer-divider"></div>
             <div class="mini-footer-wordmark">MANYROADS</div>
           </div>
         </div>
         <div class="component-info">
           <div class="component-name">Footer</div>
-          <div class="component-desc">Always dark. Final CTA + contact + wordmark. White text, 60% subtitle, 15% dividers.</div>
+          <div class="component-desc">Always dark: #262625 (light) / #111110 (dark). Dual CTAs with blink cursors. H2 at text-[36px]. Subtitle at 60% white. Dividers at 15% white. MANYROADS wordmark at clamp(80px, 15vw, 200px).</div>
         </div>
       </div>
 
@@ -1276,127 +1974,171 @@
 </section>
 
 <!-- =============================================
-     SECTION: PATTERNS
+     08 — BRAND ELEMENTS
      ============================================= -->
-<section id="patterns" class="section">
+<section id="brand" class="section">
   <div class="section-inner">
-    <div class="section-marker">05 — PATTERNS</div>
-    <h2 class="section-title">Section Anatomy</h2>
-    <p class="section-desc">Every major content section follows this repeating structure. Consistency here is what makes the page feel cohesive.</p>
+    <div class="section-marker"><span class="accent-slash">//</span> 08 &mdash; BRAND_ELEMENTS</div>
+    <h2 class="section-title">Developer-Flavored Brand</h2>
+    <p class="section-desc">Visual patterns that signal &ldquo;this was built by engineers, for engineers.&rdquo; Every decorative choice nods to programming conventions.</p>
 
-    <div class="pattern-demo" style="max-width:800px;">
-      <div class="pattern-demo-section">
-        <div style="font-family:var(--mono-font); font-size:13px; color:#888; letter-spacing:0.04em; margin-bottom:12px;">03 — TWO_PATHS</div>
-        <div class="pattern-annotation">① Section marker</div>
+    <div class="brand-grid">
+
+      <!-- Section Labels -->
+      <div class="brand-card">
+        <div class="brand-preview" style="flex-direction:column; gap:12px; align-items:flex-start; padding-left:32px;">
+          <span style="font-family:var(--mono); font-size:18px; font-weight:500;"><span style="color:var(--accent-blue);">//</span> 01 &mdash; THE_PROBLEM</span>
+          <span style="font-family:var(--mono); font-size:18px; font-weight:500;"><span style="color:var(--accent-blue);">//</span> 02 &mdash; WHY_TEAMS_STALL</span>
+          <span style="font-family:var(--mono); font-size:18px; font-weight:500;"><span style="color:var(--accent-blue);">//</span> 03 &mdash; TWO_PATHWAYS</span>
+        </div>
+        <div class="brand-info">
+          <div class="brand-name">// Section Labels</div>
+          <div class="brand-desc">Code-comment-style labels via the SectionLabel component. The <code style="font-family:var(--mono); font-size:13px;">//</code> is rendered in the accent color. Underscore naming mimics variable conventions. Geist Mono, text-lg, font-medium.</div>
+        </div>
       </div>
-      <div class="pattern-demo-section">
-        <div style="font-size:28px; font-weight:700; color:#262625; letter-spacing:-0.02em; line-height:1.15;">Two ways to start. Zero decks required.</div>
-        <div class="pattern-annotation">② Section heading</div>
+
+      <!-- Trailing Underscores -->
+      <div class="brand-card">
+        <div class="brand-preview" style="flex-direction:column; gap:12px;">
+          <div style="font-family:var(--mono); font-size:16px; font-weight:500; background:var(--accent-blue); color:white; padding:6px 14px; border-radius:8px;">See where you stand<span class="blink-cursor" style="color:white;">_</span></div>
+          <div style="font-family:var(--mono); font-size:16px; font-weight:500; background:var(--btn-pathway); padding:6px 14px; border-radius:8px;">Run the assessment<span class="blink-cursor">_</span></div>
+          <div style="font-family:var(--mono); font-size:14px; color:var(--text-muted); border:1px solid var(--border); padding:3px 10px; border-radius:6px;">[ dark_ ]</div>
+        </div>
+        <div class="brand-info">
+          <div class="brand-name">Trailing Underscore_</div>
+          <div class="brand-desc">Replaces arrow icons on all CTA buttons and the dark mode toggle. Uses the .blink-cursor animation (1s ease-in-out infinite) defined in index.css. Signals interactivity through a cursor metaphor.</div>
+        </div>
       </div>
-      <div class="pattern-demo-section">
-        <div style="font-size:15px; color:#888; line-height:1.6; max-width:400px;">Whether you need a diagnostic to understand where you stand, or ready-to-deploy engineers to start improving the codebase — we'll meet you where you are.</div>
-        <div class="pattern-annotation">③ Section body</div>
-      </div>
-      <div class="pattern-demo-section" style="border-bottom:none;">
-        <div style="display:flex; gap:12px;">
-          <div style="background:#F0EEE6; border-radius:8px; padding:16px; flex:1;">
-            <div style="font-size:15px; font-weight:700; color:#262625;">Trailhead</div>
-            <div style="font-size:13px; color:#888;">Assessment pathway</div>
+
+      <!-- TypewriterButton -->
+      <div class="brand-card full-width">
+        <div class="brand-preview" style="flex-direction:column; gap:16px;">
+          <div style="font-family:var(--mono); font-size:18px; font-weight:500; background:var(--accent-blue); color:white; padding:8px 16px; border-radius:8px;">
+            See where you stand<span class="blink-cursor" style="color:white;">_</span>
           </div>
-          <div style="background:#F0EEE6; border-radius:8px; padding:16px; flex:1;">
-            <div style="font-size:15px; font-weight:700; color:#262625;">Wayfinder</div>
-            <div style="font-size:13px; color:#888;">Implementation pathway</div>
+          <div style="max-width:640px;">
+            <div style="font-family:var(--mono); font-size:13px; color:var(--text-muted); line-height:1.7;">
+              <span style="color:var(--text-primary); font-weight:500;">Phrases:</span> "See where you stand" &rarr; "Run the assessment" &rarr; "Start here"<br>
+              <span style="color:var(--text-primary); font-weight:500;">Timing:</span> 50ms type &middot; 4s pause &middot; 30ms erase &middot; 600ms between &middot; 400ms initial delay<br>
+              <span style="color:var(--text-primary); font-weight:500;">Phases:</span> typing &rarr; pause (cursor blinks) &rarr; erasing &rarr; pauseNext
+            </div>
           </div>
         </div>
-        <div class="pattern-annotation">④ Content block</div>
+        <div class="brand-info">
+          <div class="brand-name">TypewriterButton</div>
+          <div class="brand-desc">Hero CTA that cycles through 3 phrases using a ref-based 4-phase state machine. The cursor blinks only during the pause phase (when full text is visible). Accent background with white text. Geist Mono, text-lg.</div>
+        </div>
       </div>
-    </div>
 
-    <!-- Spacing -->
-    <h3 style="font-size:18px; font-weight:700; margin-top:48px; margin-bottom:8px;">Spacing Reference</h3>
-    <p style="font-size:15px; color:#888; margin-bottom:24px;">Generous vertical rhythm between sections. Consistent internal padding on cards.</p>
+      <!-- Dark Mode Toggle -->
+      <div class="brand-card">
+        <div class="brand-preview" style="gap:24px;">
+          <div style="font-family:var(--mono); font-size:14px; color:var(--text-muted); border:1px solid var(--border); padding:4px 12px; border-radius:8px;">[ dark_ ]</div>
+          <span style="font-family:var(--mono); font-size:14px; color:var(--text-muted);">&rarr;</span>
+          <div style="font-family:var(--mono); font-size:14px; color:rgba(236,236,234,0.5); background:#1A1A18; border:1px solid rgba(236,236,234,0.1); padding:4px 12px; border-radius:8px;">[ light_ ]</div>
+        </div>
+        <div class="brand-info">
+          <div class="brand-name">[ dark_ ] / [ light_ ] Toggle</div>
+          <div class="brand-desc">Bracket notation with trailing underscore. Geist Mono, text-sm. Class-based dark mode via .dark on documentElement. Initializes from prefers-color-scheme media query.</div>
+        </div>
+      </div>
 
-    <div class="spacing-demo">
-      <div class="spacing-block">
-        <div class="spacing-visual" style="height:16px;"></div>
-        <div class="spacing-label">16px</div>
-        <div class="spacing-name">Inner gap</div>
+      <!-- Tech Badges -->
+      <div class="brand-card">
+        <div class="brand-preview" style="flex-wrap:wrap; gap:8px;">
+          <span class="mini-badge">TypeScript</span>
+          <span class="mini-badge">Python</span>
+          <span class="mini-badge">Go</span>
+          <span class="mini-badge">Rust</span>
+          <span class="mini-badge">React</span>
+          <span class="mini-badge">Node.js</span>
+          <span class="mini-badge">AWS</span>
+          <span class="mini-badge">LLMs</span>
+        </div>
+        <div class="brand-info">
+          <div class="brand-name">Tech Stack Badges</div>
+          <div class="brand-desc">Pill-shaped: rounded-full, px-3 py-1. bg-card fill (#F0EEE6 / #262624 dark). Geist Mono, text-sm. Listed after team bios in section 04.</div>
+        </div>
       </div>
-      <div class="spacing-block">
-        <div class="spacing-visual" style="height:24px;"></div>
-        <div class="spacing-label">24px</div>
-        <div class="spacing-name">Card padding</div>
+
+      <!-- Logo -->
+      <div class="brand-card full-width">
+        <div class="brand-preview" style="gap:48px;">
+          <div style="font-family:var(--mono); font-size:18px; font-weight:500; letter-spacing:0.02em;">Many_Roads &lt;AI&gt;</div>
+          <div style="font-size:48px; font-weight:500; letter-spacing:-0.01em; color:var(--text-primary);">MANYROADS</div>
+        </div>
+        <div class="brand-info">
+          <div class="brand-name">Logo &amp; Wordmark</div>
+          <div class="brand-desc">Navbar: "Many_Roads &lt;AI&gt;" in Geist Mono, text-lg. Underscore and angle brackets are intentional brand elements. Footer wordmark: "MANYROADS" at clamp(80px, 15vw, 200px), Geist Sans, font-medium.</div>
+        </div>
       </div>
-      <div class="spacing-block">
-        <div class="spacing-visual" style="height:32px;"></div>
-        <div class="spacing-label">32px</div>
-        <div class="spacing-name">Component gap</div>
-      </div>
-      <div class="spacing-block">
-        <div class="spacing-visual" style="height:48px;"></div>
-        <div class="spacing-label">48px</div>
-        <div class="spacing-name">Section inner</div>
-      </div>
-      <div class="spacing-block">
-        <div class="spacing-visual" style="height:80px;"></div>
-        <div class="spacing-label">80–120px</div>
-        <div class="spacing-name">Section gap</div>
-      </div>
+
     </div>
   </div>
 </section>
 
 <!-- =============================================
-     SECTION: PRINCIPLES
+     09 — PRINCIPLES
      ============================================= -->
 <section id="principles" class="section" style="border-bottom:none;">
   <div class="section-inner">
-    <div class="section-marker">06 — PRINCIPLES</div>
+    <div class="section-marker"><span class="accent-slash">//</span> 09 &mdash; DESIGN_PRINCIPLES</div>
     <h2 class="section-title">Design Principles</h2>
     <p class="section-desc">Quick reference for decision-making when extending the system.</p>
 
     <div style="margin-bottom:40px;">
       <div class="principle-item">
         <div class="principle-name">Restraint over decoration</div>
-        <div class="principle-desc">Every element earns its place. No gradients, illustrations, or stock photography.</div>
+        <div class="principle-desc">Every element earns its place. No gradients, illustrations, or stock photography. Hierarchy comes from typography and spacing alone.</div>
       </div>
       <div class="principle-item">
         <div class="principle-name">Typography-forward</div>
-        <div class="principle-desc">Type does the heavy lifting. Bold headlines, generous spacing, clear hierarchy.</div>
+        <div class="principle-desc">Type does the heavy lifting. Medium-weight headlines (500, not 700), generous spacing, clear hierarchy through a strict 7-tier scale.</div>
       </div>
       <div class="principle-item">
         <div class="principle-name">Warm, not cold</div>
-        <div class="principle-desc">Creams and warm grays, not blue-gray-white. We're approachable engineers, not a corporate consultancy.</div>
+        <div class="principle-desc">Creams and warm grays, not blue-gray-white. We&rsquo;re approachable engineers, not a corporate consultancy.</div>
       </div>
       <div class="principle-item">
         <div class="principle-name">Dark mode as first-class</div>
-        <div class="principle-desc">Not an afterthought. Both modes are fully designed with intentional contrast.</div>
+        <div class="principle-desc">Not an afterthought. Both modes are fully designed with intentional contrast ratios. Every color token has a light and dark pair.</div>
       </div>
       <div class="principle-item">
         <div class="principle-name">Developer familiarity</div>
-        <div class="principle-desc">Monospace accents, underscore conventions, minimal chrome. Our audience writes code — the interface should feel native to them.</div>
+        <div class="principle-desc">Monospace accents, underscore conventions, code-comment section labels, bracket notation. Our audience writes code&nbsp;&mdash; the interface should feel native to them.</div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-name">One accent, not a rainbow</div>
+        <div class="principle-desc">The accent color system adds personality without disrupting the neutral palette. One color at a time, applied sparingly to interactive elements.</div>
       </div>
     </div>
 
     <div class="do-dont-grid">
       <div class="do-card">
-        <div class="do-card-header">✓ This looks like us</div>
+        <div class="do-card-header">&#10003; This looks like us</div>
         <div class="do-card-body">
-          Bold left-aligned headlines. Warm cream backgrounds. Monospace section markers with underscores. Cards with generous padding and subtle borders. No hero images. Stats that speak for themselves. A footer that's always dark.
+          Medium-weight left-aligned headlines. Warm cream backgrounds. Monospace section markers with // slashes and underscores. Cards with generous padding and subtle borders. Stats that speak for themselves. Trailing underscores on buttons. A footer that&rsquo;s always dark. One curated accent color.
         </div>
       </div>
       <div class="dont-card">
-        <div class="dont-card-header">✗ This doesn't look like us</div>
+        <div class="dont-card-header">&#10007; This doesn&rsquo;t look like us</div>
         <div class="dont-card-body">
-          Centered text. Blue/purple gradients. Stock photos of people at whiteboards. Rounded pill buttons in bright colors. Animated hero illustrations. "Book a demo" in a floating modal. Anything that feels like every other SaaS landing page.
+          Centered text. Blue/purple gradients. Stock photos of people at whiteboards. Rounded pill buttons in bright colors. Animated hero illustrations. Bold 700 weight on everything. Multiple competing accent colors. Anything that feels like every other SaaS landing page.
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer style="padding:32px 48px; background:#FAF9F6; border-top:1px solid rgba(38,38,37,0.06);">
-  <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
-    <span style="font-size:14px; color:#888;">Many Roads — Design System Visual Reference</span>
-    <span style
+<!-- =============================================
+     PAGE FOOTER
+     ============================================= -->
+<footer style="padding:32px 48px; background:white; border-top:1px solid var(--border);">
+  <div style="max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
+    <span style="font-size:14px; color:var(--text-muted);">Many Roads &lt;AI&gt; &mdash; Design System Reference v2.0</span>
+    <span style="font-family:var(--mono); font-size:14px; color:var(--text-muted);">2026-02-19</span>
+  </div>
+</footer>
+
+</body>
+</html>
