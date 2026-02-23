@@ -80,13 +80,14 @@ export default function Sidebar({ dark, onToggle }) {
 
   return (
     <aside
+      data-lenis-prevent
       className="fixed top-0 left-0 h-screen w-[240px] flex flex-col justify-between py-8 px-5 overflow-y-auto z-40"
       style={{
         background: "var(--mr-bg-card)",
         borderRight: "1px solid var(--mr-border-default)",
       }}
     >
-      <div>
+      <div className="min-h-0 overflow-y-auto">
         {/* Back link */}
         <Link
           href="/v2"
@@ -108,7 +109,7 @@ export default function Sidebar({ dark, onToggle }) {
             className="text-[13px]"
             style={{ ...MONO, color: "var(--mr-text-muted)" }}
           >
-            v1.5 &middot; 2026-02-20
+            v1.6 &middot; 2026-02-22
           </span>
         </div>
 

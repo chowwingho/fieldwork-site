@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useSyncExternalStore, useEffect } from "react";
 import Sidebar from "../components/design-system/Sidebar";
 import PrinciplesSection from "../components/design-system/PrinciplesSection";
 import ColorSection from "../components/design-system/ColorSection";
@@ -17,30 +17,37 @@ import ResponsiveSection from "../components/design-system/ResponsiveSection";
 import FormInputsSection from "../components/design-system/FormInputsSection";
 import { MONO } from "../components/design-system/constants";
 
+// External store for theme preference (localStorage-backed)
+const themeListeners = new Set();
+function emitThemeChange() {
+  themeListeners.forEach((l) => l());
+}
+function subscribeTheme(callback) {
+  themeListeners.add(callback);
+  return () => themeListeners.delete(callback);
+}
+function getThemeSnapshot() {
+  const stored = localStorage.getItem("ds-theme");
+  if (stored) return stored === "dark";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+function getServerThemeSnapshot() {
+  return false;
+}
+
 export default function DesignSystemPage() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === 'undefined') return false
-    const stored = localStorage.getItem("ds-theme");
-    if (stored) return stored === "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  const dark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getServerThemeSnapshot);
+
+  const toggleDark = () => {
+    localStorage.setItem("ds-theme", dark ? "light" : "dark");
+    emitThemeChange();
+  };
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      dark ? "dark" : "light"
-    );
-    localStorage.setItem("ds-theme", dark ? "dark" : "light");
-
-    return () => {
-      document.documentElement.removeAttribute("data-theme");
-    };
-  }, [dark]);
-
-  // Remove any leftover .dark class from V2
-  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
     document.documentElement.classList.remove("dark");
-  }, []);
+    return () => document.documentElement.removeAttribute("data-theme");
+  }, [dark]);
 
   return (
     <div
@@ -51,7 +58,7 @@ export default function DesignSystemPage() {
         color: "var(--mr-text-primary)",
       }}
     >
-      <Sidebar dark={dark} onToggle={() => setDark((d) => !d)} />
+      <Sidebar dark={dark} onToggle={toggleDark} />
 
       <main className="ml-[240px]">
         <div className="max-w-[1280px] mx-auto px-12">
@@ -75,8 +82,8 @@ export default function DesignSystemPage() {
               className="flex gap-6 text-[14px]"
               style={{ ...MONO, color: "var(--mr-text-muted)" }}
             >
-              <span>v1.5</span>
-              <span>2026-02-20</span>
+              <span>v1.6</span>
+              <span>2026-02-22</span>
               <span>Geist Sans + Geist Mono</span>
             </div>
           </header>
@@ -115,13 +122,13 @@ export default function DesignSystemPage() {
               className="text-[14px]"
               style={{ color: "var(--mr-text-muted)" }}
             >
-              Many Roads &lt;AI&gt; &mdash; Design System Reference v1.5
+              Many Roads &lt;AI&gt; &mdash; Design System Reference v1.6
             </span>
             <span
               className="text-[14px]"
               style={{ ...MONO, color: "var(--mr-text-muted)" }}
             >
-              2026-02-20
+              2026-02-22
             </span>
           </div>
         </footer>

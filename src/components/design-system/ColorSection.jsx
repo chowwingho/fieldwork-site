@@ -79,13 +79,30 @@ const DARK_TOKENS = {
 };
 
 // Hex values intentional — documenting the raw accent palette colors.
-// Blue is tokenized as --mr-accent-default; Green/Orange as --mr-status-positive/warning.
+// Green is tokenized as --mr-accent-default; Orange as --mr-status-warning.
 const ACCENT_COLORS = [
-  { name: "Green", value: "#3D7A41", contrast: "4.7:1" },
+  { name: "Green", value: "#3D7A41", contrast: "4.91:1", isDefault: true },
   { name: "Mauve", value: "#8A708A", contrast: "4.1:1" },
-  { name: "Blue", value: "#4F769A", contrast: "4.3:1", isDefault: true },
+  { name: "Blue", value: "#4F769A", contrast: "4.3:1" },
   { name: "Orange", value: "#C47030", contrast: "3.5:1" },
   { name: "Amber", value: "#B8892A", contrast: "3.1:1" },
+];
+
+// Accent scale token data for documentation panels
+const ACCENT_LIGHT_TOKENS = [
+  { variable: "--mr-accent-subtle", value: "#E7ECE3", label: "Selected rows, tag backgrounds, tinted cards" },
+  { variable: "--mr-accent-default", value: "#3D7A41", label: "Links, nav indicators, // markers, primary CTAs" },
+  { variable: "--mr-accent-hover", value: "#336737", label: "Hover state on accent buttons/links" },
+  { variable: "--mr-accent-active", value: "#2B572E", label: "Pressed/active state" },
+  { variable: "--mr-accent-on", value: "#FFFFFF", label: "Text on filled accent backgrounds", bordered: true },
+];
+
+const ACCENT_DARK_TOKENS = [
+  { variable: "--mr-accent-subtle", value: "rgba(61, 122, 65, 0.12)", label: "Tinted selection on dark bg" },
+  { variable: "--mr-accent-default", value: "#6F9C72", label: "Links, indicators on dark bg" },
+  { variable: "--mr-accent-hover", value: "#5E8B61", label: "Hover on dark bg" },
+  { variable: "--mr-accent-active", value: "#4E7A51", label: "Pressed on dark bg" },
+  { variable: "--mr-accent-on", value: "#FFFFFF", label: "Text on filled accent backgrounds", bordered: true },
 ];
 
 function ColorRamp({ colors, label }) {
@@ -279,6 +296,202 @@ export default function ColorSection() {
           ))}
         </div>
 
+        {/* Accent scale tokens */}
+        <div className="mb-16">
+          <span
+            className="text-[14px] font-medium block mb-2"
+            style={{ ...MONO, color: "var(--mr-text-primary)" }}
+          >
+            ACCENT SCALE
+          </span>
+          <p
+            className="text-[15px] leading-[1.6] mb-6"
+            style={{ color: "var(--mr-text-muted)" }}
+          >
+            Five functional tokens derived from the brand green (#3D7A41).
+            Dark mode variants are lighter to maintain contrast on dark backgrounds.
+          </p>
+
+          {/* Side-by-side accent panels (hardcoded hex — always show respective mode) */}
+          <div className="grid grid-cols-2 gap-8 mb-8">
+            {/* Light accent tokens */}
+            <div
+              className="rounded-xl p-8"
+              style={{
+                background: "#FAF9F6",
+                border: "1px solid rgba(38, 38, 37, 0.12)",
+              }}
+            >
+              <span
+                className="text-[14px] font-medium block mb-6"
+                style={{ ...MONO, color: "#262625" }}
+              >
+                LIGHT MODE
+              </span>
+              {ACCENT_LIGHT_TOKENS.map((token) => (
+                <div key={token.variable} className="flex items-center gap-3 py-1.5">
+                  <div
+                    className="w-8 h-8 rounded-md flex-shrink-0"
+                    style={{
+                      background: token.value,
+                      ...(token.bordered
+                        ? { boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.08)" }
+                        : {}),
+                    }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <span className="text-[13px] block" style={{ ...MONO, color: "#262625" }}>
+                      {token.variable}
+                    </span>
+                    <span className="text-[12px]" style={{ ...MONO, color: "#888888" }}>
+                      {token.value}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Dark accent tokens */}
+            <div
+              className="rounded-xl p-8"
+              style={{
+                background: "#262624",
+                border: "1px solid rgba(236, 236, 234, 0.1)",
+              }}
+            >
+              <span
+                className="text-[14px] font-medium block mb-6"
+                style={{ ...MONO, color: "#ECECEA" }}
+              >
+                DARK MODE
+              </span>
+              {ACCENT_DARK_TOKENS.map((token) => (
+                <div key={token.variable} className="flex items-center gap-3 py-1.5">
+                  <div
+                    className="w-8 h-8 rounded-md flex-shrink-0"
+                    style={{
+                      background: token.value,
+                      ...(token.bordered
+                        ? { boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.1)" }
+                        : {}),
+                    }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <span className="text-[13px] block" style={{ ...MONO, color: "#ECECEA" }}>
+                      {token.variable}
+                    </span>
+                    <span className="text-[12px]" style={{ ...MONO, color: "rgba(236, 236, 234, 0.5)" }}>
+                      {token.value}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Live accent tokens (respond to dark mode toggle) */}
+          <div className="mb-8">
+            <span
+              className="text-[14px] font-medium block mb-4"
+              style={{ ...MONO, color: "var(--mr-text-primary)" }}
+            >
+              LIVE ACCENT TOKENS (follows current theme)
+            </span>
+            <TokenGroup
+              title="Accent"
+              tokens={ACCENT_LIGHT_TOKENS.map((t) => ({
+                ...t,
+                value: `var(${t.variable})`,
+              }))}
+            />
+          </div>
+
+          {/* Usage table */}
+          <div className="mb-8">
+            <span
+              className="text-[13px] font-medium block mb-3 uppercase tracking-wider"
+              style={{ ...MONO, color: "var(--mr-text-muted)" }}
+            >
+              Usage Reference
+            </span>
+            <div
+              className="rounded-xl overflow-hidden"
+              style={{ border: "1px solid var(--mr-border-default)" }}
+            >
+              <table className="w-full text-[14px]">
+                <thead>
+                  <tr style={{ background: "var(--mr-bg-card)" }}>
+                    <th
+                      className="text-left px-4 py-3 font-medium"
+                      style={{ ...MONO, color: "var(--mr-text-primary)" }}
+                    >
+                      Token
+                    </th>
+                    <th
+                      className="text-left px-4 py-3 font-medium"
+                      style={{ color: "var(--mr-text-primary)" }}
+                    >
+                      Usage
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ACCENT_LIGHT_TOKENS.map((token, i) => (
+                    <tr
+                      key={token.variable}
+                      style={{
+                        borderTop: "1px solid var(--mr-border-default)",
+                        ...(i % 2 === 1 ? { background: "var(--mr-bg-card)" } : {}),
+                      }}
+                    >
+                      <td
+                        className="px-4 py-2.5"
+                        style={{ ...MONO, color: "var(--mr-text-primary)" }}
+                      >
+                        {token.variable}
+                      </td>
+                      <td
+                        className="px-4 py-2.5"
+                        style={{ color: "var(--mr-text-muted)" }}
+                      >
+                        {token.label}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Contrast ratios */}
+          <div>
+            <span
+              className="text-[13px] font-medium block mb-3 uppercase tracking-wider"
+              style={{ ...MONO, color: "var(--mr-text-muted)" }}
+            >
+              Contrast Ratios
+            </span>
+            <div className="flex flex-col gap-1.5">
+              {[
+                { label: "--mr-accent-default light (#3D7A41) vs page", ratio: "4.91:1", pass: true },
+                { label: "--mr-accent-default dark (#6F9C72) vs page", ratio: "5.54:1", pass: true },
+                { label: "--mr-accent-on (#FFF) vs default (#3D7A41)", ratio: "5.17:1", pass: true },
+              ].map((item) => (
+                <span
+                  key={item.label}
+                  className="text-[13px]"
+                  style={{ ...MONO, color: "var(--mr-text-muted)" }}
+                >
+                  {item.label} &mdash; {item.ratio}{" "}
+                  <span style={{ color: "var(--mr-accent-default)" }}>
+                    {item.pass ? "AA \u2713" : ""}
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Accent colors */}
         <div>
           <span
@@ -288,17 +501,11 @@ export default function ColorSection() {
             ACCENT PALETTE
           </span>
           <p
-            className="text-[15px] leading-[1.6] mb-2"
+            className="text-[15px] leading-[1.6] mb-6"
             style={{ color: "var(--mr-text-muted)" }}
           >
             One accent color at a time, applied sparingly to interactive elements.
-            Blue is the default. Contrast ratios measured against white.
-          </p>
-          <p
-            className="text-[13px] leading-[1.6] mb-6 italic"
-            style={{ ...MONO, color: "var(--mr-text-muted)" }}
-          >
-            Internal testing only &mdash; accent color has not been finalized for production use.
+            Green is the default. Contrast ratios measured against white.
           </p>
           <div className="flex gap-4">
             {ACCENT_COLORS.map((accent) => (

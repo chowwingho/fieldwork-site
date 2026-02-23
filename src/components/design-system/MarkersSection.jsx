@@ -170,7 +170,7 @@ export default function MarkersSection() {
 </span>
 
 /* V2 uses var(--accent) for the // color */
-/* Design system uses var(--mr-accent-default) (static blue) */`}
+/* Design system uses var(--mr-accent-default) (brand green) */`}
           </CodeBlock>
         </div>
       </div>

@@ -140,3 +140,127 @@ npm run build  # Production build
 npm start      # Serve production build (port 3000)
 npm run lint   # ESLint
 ```
+
+---
+
+## Design System Rules
+
+**These rules are mandatory for all code generation in this project. Violations (hardcoded colors, wrong fonts, skipped tokens) must be caught and corrected before any code is considered complete.**
+
+### Rule 1: Always Use Design Tokens
+
+The single source of truth is `src/tokens/tokens.css`. Every visual value — color, spacing, shadow, radius, font family — must reference a `--mr-*` CSS custom property. Never hardcode hex values, rgba values, or raw pixel values that have a corresponding token.
+
+```css
+/* ✅ Correct */
+background-color: var(--mr-bg-card);
+color: var(--mr-text-primary);
+padding: var(--mr-space-sm);
+border-radius: var(--mr-radius-md);
+box-shadow: var(--mr-shadow-md);
+
+/* ❌ Wrong — hardcoded values */
+background-color: #F0EEE6;
+color: #262625;
+padding: 24px;
+border-radius: 8px;
+box-shadow: 0 4px 12px rgba(38, 38, 37, 0.08);
+```
+
+When applying tokens in JSX, use inline styles or Tailwind arbitrary values:
+```jsx
+// Inline style
+<div style={{ backgroundColor: 'var(--mr-bg-card)' }}>
+
+// Tailwind arbitrary value
+<div className="bg-[var(--mr-bg-card)]">
+```
+
+### Rule 2: Available Token Reference
+
+**Colors (auto-switch between light/dark via `data-theme`):**
+- Backgrounds: `--mr-bg-page`, `--mr-bg-card`, `--mr-bg-button-primary`, `--mr-bg-button-pathway`
+- Text: `--mr-text-primary`, `--mr-text-muted`
+- Interactive: `--mr-hover-primary`, `--mr-hover-pathway`
+- Borders: `--mr-border-default`
+- Footer: `--mr-footer-bg`, `--mr-footer-text`, `--mr-footer-sub`, `--mr-footer-divider`
+- Accent: `--mr-accent-subtle`, `--mr-accent-default`, `--mr-accent-hover`, `--mr-accent-active`, `--mr-accent-on` (brand green scale — auto-switches light/dark)
+- Status: `--mr-status-positive`, `--mr-status-warning`, `--mr-status-critical`, `--mr-status-neutral`
+
+**Form inputs:**
+- `--mr-input-bg`, `--mr-input-border`, `--mr-input-border-focus`, `--mr-input-border-error`
+- `--mr-input-text`, `--mr-input-placeholder`, `--mr-input-disabled-opacity`
+- `--mr-input-padding-x` (16px), `--mr-input-padding-y` (12px), `--mr-input-radius`
+
+**Typography:**
+- `--mr-font-display` — Geist Sans stack (headings)
+- `--mr-font-body` — Geist Sans stack (body text)
+- `--mr-font-mono` — Geist Mono stack (UI accents, labels, buttons, nav)
+
+**Spacing:**
+- `--mr-space-xs` (16px), `--mr-space-sm` (24px), `--mr-space-md` (32px)
+- `--mr-space-lg` (48px), `--mr-space-xl` (80px), `--mr-space-2xl` (120px)
+
+**Other:**
+- Radius: `--mr-radius-sm` (4px), `--mr-radius-md` (8px), `--mr-radius-lg` (12px), `--mr-radius-full`
+- Shadows: `--mr-shadow-sm`, `--mr-shadow-md`, `--mr-shadow-lg`
+- Motion: `--mr-transition-fast` (150ms), `--mr-transition-base` (250ms), `--mr-transition-slow` (400ms)
+- Grid: `--mr-max-width` (1280px), `--mr-grid-columns` (12), `--mr-grid-gutter` (24px)
+
+### Rule 3: Font Usage
+
+- **Geist Sans** (`--mr-font-display` / `--mr-font-body`) — all body text and headings
+- **Geist Mono** (`--mr-font-mono`) — nav links, section labels, CTA buttons, badges, logo, toggle, footer nav/social. Applied via the shared `MONO` constant from `src/components/design-system/constants.js`
+
+Never introduce additional fonts without explicit approval.
+
+### Rule 4: Dark Mode
+
+- Dark mode is controlled by `data-theme="dark"` on `<html>` plus `.dark` class for Tailwind
+- All color tokens auto-switch between light and dark — no separate dark mode styles needed if tokens are used correctly
+- New color values must be added to **both** light and dark sections in `tokens.css`
+- Test both modes when adding or modifying any visual element
+
+### Rule 5: Component Patterns
+
+When building new components, follow these existing patterns:
+
+- **Section wrapper:** Full-width outer `<section>` for background color, inner `<div>` with `max-w-[1280px] mx-auto` and responsive padding
+- **Section labels:** Use the `SectionLabel` component with `// 0X — LABEL_NAME` format
+- **Buttons:** Use `PrimaryButton` for standard CTAs, pathway-style for secondary actions. Always Geist Mono, trailing underscore, no arrow icons
+- **Cards:** Use `--mr-bg-card` background, `--mr-border-default` border, `--mr-radius-md` corners
+- **Links:** External links use `↗` suffix in Geist Mono `text-sm`
+- **Responsive:** Mobile-first with Tailwind breakpoints (sm/md/lg/xl). Navigation collapses to hamburger below `md`
+
+### Rule 6: CSS Utility Classes
+
+Six hover-state utility classes are defined in `globals.css`. Use these instead of writing inline hover styles:
+- `.mr-btn-primary` — primary button hover
+- `.mr-btn-pathway` — pathway button hover
+- `.mr-btn-toggle` — dark mode toggle hover
+- `.mr-link-nav` — nav link hover
+- `.mr-link-muted` — muted link hover
+- `.mr-link-footer` — footer link hover
+
+### Rule 7: New Tokens
+
+If a design requires a value not covered by existing tokens:
+1. Add the new `--mr-*` token to `src/tokens/tokens.css` in both light and dark sections
+2. Use the naming convention: `--mr-{category}-{element}` (e.g., `--mr-bg-sidebar`, `--mr-text-accent`)
+3. Never skip this step and hardcode the value "for now" — add the token first, then use it
+
+### Rule 8: Accessibility
+
+- Minimum contrast: 4.5:1 for body text, 3:1 for large text (18px+) and UI elements
+- Never use color as the sole indicator of state — combine with text, icons, or borders
+- All interactive elements need visible focus states
+- Form inputs follow the token pattern in `tokens.css` (focus ring = `--mr-input-border-focus`)
+
+### Rule 9: Self-Check Before Submitting Code
+
+Before finalizing any code change, verify:
+- [ ] No hardcoded color values — all colors use `var(--mr-*)` tokens
+- [ ] No hardcoded font families — use `--mr-font-display`, `--mr-font-body`, or `--mr-font-mono`
+- [ ] Dark mode works — toggle and confirm both themes render correctly
+- [ ] Responsive — check mobile (375px), tablet (768px), and desktop (1280px)
+- [ ] New tokens (if any) added to both light and dark in `tokens.css`

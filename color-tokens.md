@@ -75,6 +75,37 @@
 
 ---
 
+## Accent Scale
+
+Brand green accent with 5 functional tokens. Dark mode variants are lighter to maintain contrast on dark backgrounds.
+
+### Light Mode
+| Token                  | Hex       | Usage                                              |
+|------------------------|-----------|----------------------------------------------------|
+| `--mr-accent-subtle`   | `#E7ECE3` | Selected row bg, tag backgrounds, tinted cards     |
+| `--mr-accent-default`  | `#3D7A41` | Links, active nav indicators, // markers, primary CTAs |
+| `--mr-accent-hover`    | `#336737` | Hover state on accent buttons/links                |
+| `--mr-accent-active`   | `#2B572E` | Pressed/active state                               |
+| `--mr-accent-on`       | `#FFFFFF` | Text on filled accent backgrounds                  |
+
+### Dark Mode
+| Token                  | Value                        | Usage                          |
+|------------------------|------------------------------|--------------------------------|
+| `--mr-accent-subtle`   | `rgba(61, 122, 65, 0.12)`   | Tinted selection on dark bg    |
+| `--mr-accent-default`  | `#6F9C72`                    | Links, indicators on dark bg   |
+| `--mr-accent-hover`    | `#5E8B61`                    | Hover on dark bg               |
+| `--mr-accent-active`   | `#4E7A51`                    | Pressed on dark bg             |
+| `--mr-accent-on`       | `#FFFFFF`                    | Text on filled accent bg       |
+
+### Contrast Ratios
+| Pair                                        | Ratio  | Pass |
+|---------------------------------------------|--------|------|
+| `--mr-accent-default` light (#3D7A41) vs page (#FAF9F6) | 4.91:1 | AA   |
+| `--mr-accent-default` dark (#6F9C72) vs page (#1A1A18)  | 5.54:1 | AA   |
+| `--mr-accent-on` (#FFF) vs default (#3D7A41)            | 5.17:1 | AA   |
+
+---
+
 ## Summary — Unique Hex Values
 
 | Light         | Dark          | Role                    |
