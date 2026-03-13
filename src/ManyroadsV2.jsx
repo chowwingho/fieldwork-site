@@ -735,22 +735,18 @@ function Footer() {
 // MAIN COMPONENT
 // =============================================================================
 export default function ManyroadsV2() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-  });
+  const [dark, setDark] = useState(false);
   const [accent, setAccent] = useState("#4F769A");
+
+  useEffect(() => {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDark(prefersDark);
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
   }, [dark]);
-
-  useEffect(() => {
-    return () => {
-      document.documentElement.removeAttribute("data-theme");
-    };
-  }, []);
 
   return (
     <div

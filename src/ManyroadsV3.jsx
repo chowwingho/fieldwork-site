@@ -1,6 +1,9 @@
 'use client'
 // Many Roads V2 — Site v1.7 — 2026-02-20
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import CommandPalette from "./components/CommandPalette";
+import MraiConsole from "./components/MraiConsole";
+import Logo from "./components/Logo";
 
 // =============================================================================
 // ASSET URLS (Figma exports — valid for 7 days)
@@ -134,20 +137,9 @@ function HeroButton() {
 // =============================================================================
 // SECTIONS
 // =============================================================================
-function Navbar({ dark, onToggle, accent, onAccentChange }) {
-  const [accentOpen, setAccentOpen] = useState(false);
+function Navbar({ onOpenPalette, onOpenConsole }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
   const menuRef = useRef(null);
-
-  useEffect(() => {
-    if (!accentOpen) return;
-    function handleClick(e) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setAccentOpen(false);
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [accentOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -167,7 +159,7 @@ function Navbar({ dark, onToggle, accent, onAccentChange }) {
   return (
     <nav className="sticky top-0 z-50" style={{ background: "var(--mr-bg-page)" }} ref={menuRef}>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 flex items-center justify-between h-[77px]">
-        <span className="text-lg font-medium tracking-wide" style={{ ...MONO, color: "var(--mr-text-primary)" }}>Leading Intelligence</span>
+        <Logo className="h-6 md:h-7 w-auto" style={{ color: "var(--mr-text-primary)" }} />
         <div className="flex items-center gap-4 md:gap-8">
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
@@ -180,42 +172,22 @@ function Navbar({ dark, onToggle, accent, onAccentChange }) {
                 {link}
               </a>
             ))}
-          </div>
-          <div className="relative hidden md:block" ref={dropdownRef}>
             <button
-              onClick={() => setAccentOpen(!accentOpen)}
-              className="w-5 h-5 rounded-full cursor-pointer transition-transform hover:scale-110"
-              style={{ backgroundColor: accent }}
-            />
-            {accentOpen && (
-              <div className="absolute right-0 top-full mt-2 rounded-lg p-3 flex items-center gap-3 z-50" style={{ background: "var(--mr-bg-page)", border: "1px solid var(--mr-border-default)" }}>
-                {ACCENT_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.color}
-                    onClick={() => { onAccentChange(opt.color); setAccentOpen(false); }}
-                    className="flex flex-col items-center gap-1.5 cursor-pointer group"
-                  >
-                    <span
-                      className="w-5 h-5 rounded-full transition-transform group-hover:scale-110"
-                      style={{
-                        backgroundColor: opt.color,
-                        outline: accent === opt.color ? `2px solid ${opt.color}` : "none",
-                        outlineOffset: "2px",
-                      }}
-                    />
-                    <span className="text-xs whitespace-nowrap" style={{ ...MONO, color: "var(--mr-text-muted)" }}>{opt.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+              onClick={onOpenPalette}
+              className="text-sm mr-btn-toggle rounded-lg px-3 py-1 flex items-center gap-1.5"
+              style={MONO}
+            >
+              Search<span className="blink-cursor">_</span>
+              <kbd className="text-xs ml-1 px-1.5 py-0.5 rounded" style={{ border: '1px solid var(--mr-border-default)', color: 'var(--mr-text-muted)' }}>/</kbd>
+            </button>
+            <button
+              onClick={onOpenConsole}
+              className="text-sm mr-btn-toggle rounded-lg px-3 py-1"
+              style={MONO}
+            >
+              [C] CONSOLE
+            </button>
           </div>
-          <button
-            onClick={onToggle}
-            className="text-sm mr-btn-toggle rounded-lg px-3 py-1"
-            style={MONO}
-          >
-            {dark ? "[ light_ ]" : "[ dark_ ]"}
-          </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden flex flex-col justify-center gap-1.5 w-6 h-6 cursor-pointer"
@@ -230,6 +202,20 @@ function Navbar({ dark, onToggle, accent, onAccentChange }) {
       {menuOpen && (
         <div className="md:hidden border-t" style={{ background: "var(--mr-bg-page)", borderColor: "var(--mr-border-default)" }}>
           <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-4 flex flex-col">
+            <button
+              onClick={() => { setMenuOpen(false); onOpenPalette(); }}
+              className="py-3 text-lg font-medium mr-link-nav text-left flex items-center gap-2"
+              style={MONO}
+            >
+              Search<span className="blink-cursor">_</span>
+            </button>
+            <button
+              onClick={() => { setMenuOpen(false); onOpenConsole(); }}
+              className="py-3 text-lg font-medium mr-link-nav text-left"
+              style={MONO}
+            >
+              [C] Console
+            </button>
             {NAV_LINKS.map((link) => (
               <a
                 key={link}
@@ -250,7 +236,7 @@ function Navbar({ dark, onToggle, accent, onAccentChange }) {
 
 function HeroSection() {
   return (
-    <section className="pt-16 pb-16 md:pt-24 md:pb-24">
+    <section id="home" className="pt-16 pb-16 md:pt-24 md:pb-24">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6">
           <div className="md:col-span-5 flex flex-col gap-8">
@@ -279,7 +265,7 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section className="py-16 md:py-24 lg:py-32">
+    <section id="about" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="pt-12 md:pt-16 lg:pt-24" style={{ borderTop: "1px solid var(--mr-border-default)" }}>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6 mb-12 md:mb-16">
@@ -333,7 +319,7 @@ function AboutSection() {
 
 function ServicesSection() {
   return (
-    <section className="py-16 md:py-24 lg:py-32">
+    <section id="services" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="pt-12 md:pt-16 lg:pt-24" style={{ borderTop: "1px solid var(--mr-border-default)" }}>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6">
@@ -365,7 +351,7 @@ function ServicesSection() {
 
 function PathwaysSection() {
   return (
-    <section className="py-16 md:py-24 lg:py-32">
+    <section id="pathways" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="pt-12 md:pt-16 lg:pt-24" style={{ borderTop: "1px solid var(--mr-border-default)" }}>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6 mb-10 md:mb-16">
@@ -442,7 +428,7 @@ function PathwaysSection() {
 
 function TeamSection() {
   return (
-    <section className="py-16 md:py-24 lg:py-32">
+    <section id="team" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="pt-12 md:pt-16 lg:pt-24" style={{ borderTop: "1px solid var(--mr-border-default)" }}>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6">
@@ -508,7 +494,7 @@ function TeamSection() {
 
 function CredibilitySection() {
   return (
-    <section className="py-16 md:py-24 lg:py-32">
+    <section id="credibility" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="pt-12 md:pt-16 lg:pt-24" style={{ borderTop: "1px solid var(--mr-border-default)" }}>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6">
@@ -580,9 +566,20 @@ function CredibilitySection() {
   );
 }
 
-function Footer() {
+function Footer({ dark, onToggle, accent, onAccentChange }) {
+  const [accentOpen, setAccentOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (!accentOpen) return;
+    function handleClick(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setAccentOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [accentOpen]);
   return (
-    <footer className="py-16 md:py-20 lg:py-24" style={{ background: "var(--mr-footer-bg)", color: "var(--mr-footer-text)" }}>
+    <footer id="contact" className="py-16 md:py-20 lg:py-24" style={{ background: "var(--mr-footer-bg)", color: "var(--mr-footer-text)" }}>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="max-w-2xl mb-8">
           <h2 className="text-2xl md:text-3xl lg:text-[36px] font-medium leading-[1.2]">
@@ -675,6 +672,44 @@ function Footer() {
           </p>
           <p className="text-sm mt-4" style={{ ...MONO, color: "var(--mr-footer-sub)" }}>v1.7</p>
         </div>
+        {/* Theme & accent controls */}
+        <div className="mt-12 pt-8 flex flex-wrap items-center gap-6" style={{ borderTop: "1px solid var(--mr-footer-divider)" }}>
+          <button
+            onClick={onToggle}
+            className="text-sm rounded-lg px-3 py-1"
+            style={{ ...MONO, color: "var(--mr-footer-text)", border: "1px solid var(--mr-footer-divider)", transition: "background-color 250ms ease, color 250ms ease" }}
+          >
+            {dark ? "[ light_ ]" : "[ dark_ ]"}
+          </button>
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setAccentOpen(!accentOpen)}
+              className="w-5 h-5 rounded-full cursor-pointer transition-transform hover:scale-110"
+              style={{ backgroundColor: accent }}
+            />
+            {accentOpen && (
+              <div className="absolute left-0 bottom-full mb-2 rounded-lg p-3 flex items-center gap-3 z-50" style={{ background: "var(--mr-footer-bg)", border: "1px solid var(--mr-footer-divider)" }}>
+                {ACCENT_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.color}
+                    onClick={() => { onAccentChange(opt.color); setAccentOpen(false); }}
+                    className="flex flex-col items-center gap-1.5 cursor-pointer group"
+                  >
+                    <span
+                      className="w-5 h-5 rounded-full transition-transform group-hover:scale-110"
+                      style={{
+                        backgroundColor: opt.color,
+                        outline: accent === opt.color ? `2px solid ${opt.color}` : "none",
+                        outlineOffset: "2px",
+                      }}
+                    />
+                    <span className="text-xs whitespace-nowrap" style={{ ...MONO, color: "var(--mr-footer-sub)" }}>{opt.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </footer>
   );
@@ -684,11 +719,39 @@ function Footer() {
 // MAIN COMPONENT
 // =============================================================================
 export default function ManyroadsV2() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-  });
-  const [accent, setAccent] = useState("#4F769A");
+  const [dark, setDark] = useState(false);
+
+  // Sync with system preference after hydration
+  useEffect(() => {
+    setDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }, []);
+  const [accent, setAccent] = useState("#3D7A41");
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [consoleOpen, setConsoleOpen] = useState(false);
+
+  useEffect(() => {
+    function handleGlobalKey(e) {
+      // Backtick or "c" toggles console (when not in input)
+      if ((e.key === '`' || e.key === 'c') && !e.metaKey && !e.ctrlKey && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+        e.preventDefault()
+        setConsoleOpen(prev => !prev)
+        return
+      }
+      // Cmd+K / Ctrl+K
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setPaletteOpen(true)
+        return
+      }
+      // "/" when no input/textarea is focused
+      if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+        e.preventDefault()
+        setPaletteOpen(true)
+      }
+    }
+    document.addEventListener('keydown', handleGlobalKey)
+    return () => document.removeEventListener('keydown', handleGlobalKey)
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -707,7 +770,8 @@ export default function ManyroadsV2() {
       style={{ fontFamily: '"Geist Sans", sans-serif', "--accent": accent, "--accent-hover": darkenColor(accent), background: "var(--mr-bg-page)" }}
     >
       <style>{`.v3-root ::selection { background: var(--mr-accent-default); color: var(--mr-accent-on); }`}</style>
-      <Navbar dark={dark} onToggle={() => setDark(!dark)} accent={accent} onAccentChange={setAccent} />
+      <Navbar onOpenPalette={() => setPaletteOpen(true)} onOpenConsole={() => setConsoleOpen(true)} />
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} dark={dark} onToggleDark={() => setDark(!dark)} accent={accent} />
       <main>
         <HeroSection />
         <AboutSection />
@@ -716,7 +780,8 @@ export default function ManyroadsV2() {
         <TeamSection />
         <CredibilitySection />
       </main>
-      <Footer />
+      <Footer dark={dark} onToggle={() => setDark(!dark)} accent={accent} onAccentChange={setAccent} />
+      <MraiConsole open={consoleOpen} onClose={() => setConsoleOpen(false)} dark={dark} onToggleDark={() => setDark(!dark)} />
     </div>
   );
 }

@@ -78,3 +78,49 @@ h1, h2, h3 {
   transition: color 250ms ease;
 }
 .mr-link-footer:hover { color: var(--mr-footer-sub); }
+
+/* Footer newsletter */
+.mr-footer-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: none;
+  color: var(--mr-footer-text);
+  transition: border-color 250ms ease;
+}
+.mr-footer-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.mr-footer-input-wrap {
+  border: 1px solid var(--mr-footer-divider);
+  border-radius: var(--mr-radius-md);
+  overflow: hidden;
+  display: flex;
+  transition: border-color 250ms ease;
+}
+.mr-footer-input-wrap:focus-within {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.mr-footer-subscribe {
+  background: var(--mr-accent-default);
+  color: white;
+  border: none;
+  transition: background-color var(--mr-transition-fast);
+}
+.mr-footer-subscribe:hover {
+  background: var(--mr-accent-hover);
+}
+.mr-footer-link {
+  color: var(--mr-footer-sub);
+  transition: color var(--mr-transition-fast);
+}
+.mr-footer-link:hover {
+  color: var(--mr-footer-text);
+}
+
+/* Command palette */
+.mr-palette-item {
+  transition: background-color var(--mr-transition-fast);
+}
+.mr-palette-item:hover,
+.mr-palette-item[data-selected="true"] {
+  background: var(--mr-bg-card-elevated);
+}

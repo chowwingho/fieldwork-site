@@ -3,8 +3,16 @@ import LenisScroll from '../components/LenisScroll'
 
 export const metadata = {
   title: {
-    default: 'Many Roads AI',
-    template: '%s — Many Roads AI',
+    default: 'Leading Intelligence',
+    template: '%s — Leading Intelligence',
+  },
+  description: 'AI consulting for engineering teams. We help Series B–D tech companies get actual value from AI coding tools.',
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/apple-icon.png',
   },
 }
 

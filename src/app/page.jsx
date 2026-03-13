@@ -25,6 +25,12 @@ export default function IndexPage() {
           >
             Version 3
           </Link>
+          <Link
+            href="/v4"
+            className="px-8 py-4 bg-[#E8E6DD] text-[#262625] text-lg font-medium rounded-lg hover:bg-[#DEDAD0] transition-colors"
+          >
+            Version 4
+          </Link>
         </div>
       </div>
     </div>

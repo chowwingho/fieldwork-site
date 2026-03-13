@@ -569,21 +569,6 @@ requestAnimationFrame(raf);
 - Accent picker dots: `hover:scale-110` transform
 - No box-shadow hover effects — the aesthetic is flat and minimal
 
-### Click-Outside Dismissal
-
-Used for the accent picker dropdown and mobile hamburger menu. Shared pattern:
-
-```jsx
-useEffect(() => {
-  if (!isOpen) return;
-  function handleClick(e) {
-    if (ref.current && !ref.current.contains(e.target)) setIsOpen(false);
-  }
-  document.addEventListener("mousedown", handleClick);
-  return () => document.removeEventListener("mousedown", handleClick);
-}, [isOpen]);
-```
-
 ---
 
 ## 8. Brand Voice in UI
