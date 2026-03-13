@@ -116,6 +116,19 @@ h1, h2, h3 {
   color: var(--mr-footer-text);
 }
 
+/* Toast notification for copy button */
+.mr-toast {
+  background: var(--mr-accent-default);
+  color: var(--mr-accent-on);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* Dashed border container */
+.mr-border-dashed {
+  border: 1px dashed var(--mr-border-default);
+  border-radius: var(--mr-radius-lg);
+}
+
 /* Command palette */
 .mr-palette-item {
   transition: background-color var(--mr-transition-fast);
